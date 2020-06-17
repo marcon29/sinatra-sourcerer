@@ -7,8 +7,8 @@ if ActiveRecord::Base.connection.migration_context.needs_migration?
 end
 
 use Rack::MethodOverride
-use SourcesController
-use SubjectsController
-use TopicsController
-use UsersController
+# use SourcesController
+# use SubjectsController
+# use TopicsController
+# use UsersController
 run AppController 
