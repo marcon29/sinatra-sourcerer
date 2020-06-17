@@ -1,0 +1,43 @@
+html {
+    box-sizing: border-box;
+    padding: 0;
+    position: relative;
+    min-height: 100%;
+  }
+  
+  body {
+      text-align: center;
+      background-color: #D4F5F5;
+      color: #554348;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      padding: 0;
+      margin: 0 0 100px;
+      height: 100%;
+    }
+    
+    header {
+      background-color: lightskyblue;    
+      position: fixed;
+      top: 0px;
+      width: 100%;
+    }
+    
+    nav ul li {
+      display: inline-block;
+      margin: 10px;
+      list-style-type: none;
+    }
+   
+    main {
+      margin-top: 150px;
+    }
+    
+    footer {
+      background-color: #888888;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 100px;
+      width: 100%;
+      margin: 0;
+    }
