@@ -1,4 +1,7 @@
 class Source < ActiveRecord::Base
-    belongs_to :user
-    belongs_to :topic
+    has_many :user_subject_topic_sources
+
+    has_many :users, through: :user_subject_topic_sources
+    has_many :subjects, through: :user_subject_topic_sources
+    has_many :topics, through: :user_subject_topic_sources
 end

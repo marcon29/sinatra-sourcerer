@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_153121) do
+ActiveRecord::Schema.define(version: 2020_06_23_201126) do
 
   create_table "sources", force: :cascade do |t|
     t.string "name"
@@ -24,8 +24,6 @@ ActiveRecord::Schema.define(version: 2020_06_23_153121) do
     t.boolean "public"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "topic_id"
   end
 
   create_table "subjects", force: :cascade do |t|
@@ -36,7 +34,13 @@ ActiveRecord::Schema.define(version: 2020_06_23_153121) do
   create_table "topics", force: :cascade do |t|
     t.string "name"
     t.string "description"
+  end
+
+  create_table "user_subject_topic_sources", force: :cascade do |t|
+    t.integer "user_id"
     t.integer "subject_id"
+    t.integer "topic_id"
+    t.integer "source_id"
   end
 
   create_table "users", force: :cascade do |t|
