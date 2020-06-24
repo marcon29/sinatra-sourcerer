@@ -17,6 +17,7 @@ class SourcesController < AppController
   
     get '/sources/:id' do    
       @source = Source.find(params[:id])
+    #   binding.pry
       erb :"/sources/show"
     end
   

@@ -1,5 +1,17 @@
-<h2>Single Source</h2>
-<p>button to edit specific source</p>
-<p>button to delete specific source</p>
-<p>show all source details</p>
+<h2><%= @source.name %></h2>
+<p>edit || delete</p>
+
+<section>
+    <p><a href="http://<%= @source.url %>" target="_blank">View Source</a></p>
+    <p>Publication: <%= @source.pub %></p>
+    <p>Synopsis: <%= @source.synopsis %></p>
+    <p>Author: <%= @source.author %></p>
+    <p>Date Published: <%= @source.pub_date %></p>
+    <p>Media Type: <%= @source.type %></p>
+    <p>Notes: <%= @source.notes %></p>
+    <p>Public: <%= @source.public %></p>
+    <p>Date Saved: <%= @source.created_at %></p>
+    <p>Last Updated: <%= @source.updated_at %></p>
+</section>
+
 

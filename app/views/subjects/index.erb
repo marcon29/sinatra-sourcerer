@@ -7,7 +7,7 @@
         
         <dl>
             <% topics_in_subject(s).each do |t| %>
-                <dt><%= t.name %> || <%= sources_in_topic(t).count %> source<%= "s" if sources_in_topic(t).count!=1 %> || edit || delete</dt>
+                <dt><a href="/topics/<%= t.id %>"><%= t.name %></a> || edit || delete</dt>
                 <dd><%= t.description %></dd>
             <% end %>
         </dl>

@@ -4,9 +4,8 @@ class TopicsController < AppController
   
     # read routes #################################    
     # also serves as sources index
-    get '/topics/:id' do
+    get '/topics/:id' do        
         @topic = Topic.find(params[:id])
-        @sources = Source.all
         erb :"/topics/show"
     end
     
