@@ -11,8 +11,6 @@ class CreateSources < ActiveRecord::Migration[5.2]
       t.text :notes
       t.boolean :public
       t.timestamps
-      t.integer :user_id
-      t.integer :topic_id
     end
   end
 end
