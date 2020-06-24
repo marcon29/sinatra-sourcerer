@@ -10,4 +10,16 @@ class AppController < Sinatra::Base
     get '/' do
         erb :index
     end
+
+
+    # helpers ###############################
+    def topics_in_subject(subj)
+        Topic.all.select { |t| t.subject == subj }
+    end
+
+    def sources_in_topic(top)
+        Source.all.select { |s| s.topics.include?(top) }
+    end
+            
+
 end

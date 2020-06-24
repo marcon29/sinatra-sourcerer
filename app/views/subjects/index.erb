@@ -1,11 +1,19 @@
-<h2>All Subjects</h2>
-<p><h3>Subject Name</h3>
-<p>show count of topics per subject</p>
-<p>button to edit specific subject</p>
-<p>button to delete specific subject</p>
+<h2>Your Subjects & Topics</h2>
 
+<% @subjects.each do |s| %>
+    <section>
+        <h3><%= s.name %> || <%= topics_in_subject(s).count %> topic<%= "s" if topics_in_subject(s).count!=1 %></h3>
+        <p><%= s.description %>|| edit || delete</p>
+        
+        <dl>
+            <% topics_in_subject(s).each do |t| %>
+                <dt><%= t.name %> || <%= sources_in_topic(t).count %> source<%= "s" if sources_in_topic(t).count!=1 %> || edit || delete</dt>
+                <dd><%= t.description %></dd>
+            <% end %>
+        </dl>
+        <hr>
+    </section>
+<% end %>
+    
 
-<h3>All Topics</h3>
-<p>show count of sources per topic</p>
-<p>button to edit specific topic</p>
-<p>button to delete specific topic</p>
+    

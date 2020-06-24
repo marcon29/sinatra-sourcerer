@@ -6,8 +6,9 @@ class SubjectsController < AppController
     # also serves as topics index
     get '/subjects' do
         @subjects = Subject.all
-        @topics = Topic.all
-        @sources = Source.all
+        # @topics = Topic.all
+        # @sources = Source.all
+
         erb :"/subjects/index"
     end
     
@@ -21,5 +22,7 @@ class SubjectsController < AppController
         
     # delete routes ###############################
 
+
+    
 
 end
