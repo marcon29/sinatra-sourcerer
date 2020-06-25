@@ -1,6 +1,21 @@
 class SubjectsController < AppController
     # create routes ###############################
+    get '/subjects/new' do        
+        erb :"/subjects/new"
+    end
 
+    post '/subjects' do
+        # binding.pry
+        subject = Subject.create(params[:subject])
+
+        if !params[:topic][:name].empty?
+            topic = Topic.create(params[:topic])
+            topic.subject = subject
+            topic.save
+        end
+        
+        redirect "/subjects"
+    end
   
     # read routes #################################
     # also serves as topics index

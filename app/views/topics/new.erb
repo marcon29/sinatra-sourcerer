@@ -1,0 +1,25 @@
+<h2>Add New Topic</h2>
+
+<form method="post" action="/topics">
+    <h3>Topic Info</h3>
+    <p><label for="name">Name: </label>
+        <input id="name" type="text" name="topic[name]"</p>
+    <p><label for="description">Description: </label>
+        <textarea id="description" type="text" name="topic[description]"></textarea></p>
+    <br>
+
+    <h3>Associate Subject (required)</h3>
+    <h4>Select from Existing Subjects</h4>
+    <% @subjects.each do |s| %>
+        <p><label for="<%= s.name %>"><%= s.name %></label>
+            <input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>"></p>
+    <% end %>
+        
+    <h4>Associate New Subject</h4>
+    <p><label for="name">Name: </label>
+        <input id="name" type="text" name="subject[name]"</p>
+    <p><label for="description">Description: </label>
+        <textarea id="description" type="text" name="subject[description]"></textarea></p>
+
+    <p><input type="submit" value="Update"></p>
+</form>
