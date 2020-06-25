@@ -29,7 +29,10 @@ html {
     }
    
     main {
+      text-align: left;
       margin-top: 150px;
+      width: 90%;
+      padding: 20px 100px;
     }
     
     footer {
