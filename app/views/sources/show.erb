@@ -12,14 +12,31 @@
 <br><hr><br>
 
 <section>    
-    <p>Publication: <%= @source.pub %></p>
-    <p>Synopsis: <%= @source.synopsis %></p>
-    <p>Author: <%= @source.author %></p>
-    <p>Date Published: <%= @source.pub_date %></p>
-    <p>Media Type: <%= @source.media_type %></p>
-    <p>Notes: <%= @source.notes %></p>
-    <p>Public: <%= !!@source.public %></p>
-    <p>Date Saved: <%= @source.created_at %></p>
-    <p>Last Updated: <%= @source.updated_at %></p>
+    <h4>Publication:</h4>
+    <p><%= @source.pub %></p>
+    <br>
+    <h4>Synopsis:</h4>
+    <p><%= @source.synopsis %></p>
+    <br>
+    <h4>Author:</h4>
+    <p><%= @source.author %></p>
+    <br>
+    <h4>Date Published:</h4>
+    <p><%= @source.pub_date %></p>
+    <br>
+    <h4>Media Type:</h4>
+    <p><%= @source.media_type %></p>
+    <br>
+    <h4>Notes:</h4>
+    <p><%= @source.notes %></p>
+    <br>
+    <h4>Public:</h4>
+    <p><%= !!@source.public %></p>
+    <br>
+    <h4>Date Saved:</h4>
+    <p><%= @source.created_at %></p>
+    <br>
+    <h4>Last Updated:</h4>
+    <p><%= @source.updated_at %></p>
 </section>
 
