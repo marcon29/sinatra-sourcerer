@@ -15,23 +15,23 @@ class SourcesController < AppController
     #   erb :"/sources/index"
     # end
   
-    get '/sources/:id' do    
-      @source = Source.find(params[:id])
-    #   binding.pry
-      erb :"/sources/show"
+    get '/sources/:id' do
+        @source = Source.find(params[:id])
+        erb :"/sources/show"
     end
   
     # update routes ###############################
-    # get '/sources/:id/edit' do
-    #   @landmark = Landmark.find(params[:id])
-    #   erb :"/sources/edit"
-    # end
+    get '/sources/:id/edit' do
+        @source = Source.find(params[:id])
+        @topics = Topic.all        
+        erb :"/sources/edit"
+    end
   
-    # patch '/sources/:id' do
-    #   landmark = Landmark.find(params[:id])    
-    #   landmark.update(name: params[:name], year_completed: params[:year_completed])
-    #   redirect "/sources/#{landmark.id}"
-    # end
+    patch '/sources/:id' do
+        source = Source.find(params[:id])
+        source.update(params[:source])
+        redirect "/sources/#{source.id}"
+    end
   
   
     # delete routes ###############################

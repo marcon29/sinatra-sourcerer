@@ -1,0 +1,29 @@
+<h2>Edit <%= @source.name %></h2>
+
+<form method="post" action="/sources/<%= @source.id %>">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    <input id="hidden" type="hidden" name="source[public]" value="false">
+    
+    <h3>Source Info</h3>
+    <p>Name:            <input type="text" name="source[name]" value="<%= @source.name %>"></p>
+    <p>URL:             <input type="text" name="source[url]" value="<%= @source.url %>"></p>
+    <p>Publication:     <input type="text" name="source[pub]" value="<%= @source.pub %>"></p>
+    <p>Synopsis:        <textarea type="text" name="source[synopsis]"><%= @source.synopsis %></textarea></p>
+    <p>Author:          <input type="text" name="source[author]" value="<%= @source.author %>"></p>
+    <p>Date Published:  <input type="date" name="source[pub_date]" value="<%= @source.pub_date %>"></p>
+    <p>Media Type:      <input type="text" name="source[media_type]" value="<%= @source.media_type %>"></p>
+    <p>Notes:           <textarea type="text" name="source[notes]"><%= @source.notes %></textarea></p>    
+    <p>Public:          <input type="checkbox" name="source[public]" value="true" <%="checked" if @source.public==true %>></p>
+
+    <h3>Associated Topics</h3>
+    <h4>Select from Existing Topics</h4>
+    <% @topics.each do |t| %>
+        <p><input type="checkbox" name="source[topic_ids][]" value="<%= t.id %>" <%='checked' if @source.topics.include?(t) %>> <%= t.name %></p>
+    <% end %>
+    
+    <h4>Add New Topic</h4>
+    <p>add when new topic functionality ready</p>
+
+    <p><input type="submit" value="Update"></p>
+</form>
+

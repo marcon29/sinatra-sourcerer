@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_24_002128) do
+ActiveRecord::Schema.define(version: 2020_06_24_231311) do
 
   create_table "source_topics", force: :cascade do |t|
     t.integer "source_id"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_06_24_002128) do
     t.text "synopsis"
     t.string "author"
     t.datetime "pub_date"
-    t.string "type"
+    t.string "media_type"
     t.text "notes"
     t.boolean "public"
     t.datetime "created_at", null: false

@@ -1,17 +1,31 @@
+<hr>
+<br>
 <h2><%= @source.name %></h2>
-<p>edit || delete</p>
+<h3>Associated Topics: 
+    <% @source.topics.each do |t| %>
+        <%= t.name %><%= ", " if t.id != @source.topics.last.id %>
+    <% end %>
+</h3>
+<p>
+    <a href="http://<%= @source.url %>" target="_blank">View Source</a> ||
+    <a href="/sources/<%= @source.id %>/edit">Edit Source</a> ||
+    delete
+</p>
+<br>
 
-<section>
-    <p><a href="http://<%= @source.url %>" target="_blank">View Source</a></p>
+<hr>
+<br><br>
+<section>    
     <p>Publication: <%= @source.pub %></p>
     <p>Synopsis: <%= @source.synopsis %></p>
     <p>Author: <%= @source.author %></p>
     <p>Date Published: <%= @source.pub_date %></p>
-    <p>Media Type: <%= @source.type %></p>
+    <p>Media Type: <%= @source.media_type %></p>
     <p>Notes: <%= @source.notes %></p>
-    <p>Public: <%= @source.public %></p>
+    <p>Public: <%= !!@source.public %></p>
     <p>Date Saved: <%= @source.created_at %></p>
     <p>Last Updated: <%= @source.updated_at %></p>
 </section>
-
+<br><br>
+<hr>
 

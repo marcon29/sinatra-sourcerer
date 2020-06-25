@@ -1,12 +1,15 @@
 <h2><%= @topic.name %></h2>
 <p><%= sources_in_topic(@topic).count %> source<%= "s" if sources_in_topic(@topic).count!=1 %></p>
-<p><%= @topic.name %>|| edit || delete</p>
+<p><%= @topic.name %> || edit || delete</p>
 
 <% sources_in_topic(@topic).each do |s| %>
     <section>
-        <p><a href="http://<%= s.url %>" target="_blank"><h3><%= s.name %></h3></a></p>
-        <p><a href="/sources/<%= s.id %>">Source Details</a>|| edit || delete</p>
-        <p><%= s.pub %>|| <%= s.synopsis %>|| <%= s.type %></p>
+        <p><a href="http://<%= s.url %>" target="_blank"><h3><%= s.name %></h3></a>
+            <a href="/sources/<%= s.id %>">Source Details</a> || 
+            <a href="/sources/<%= s.id %>/edit">Edit Source</a> || 
+            delete
+        </p>
+        <p><%= s.pub %>|| <%= s.synopsis %>|| <%= s.media_type %></p>
         <hr>
     </section>
 <% end %>
