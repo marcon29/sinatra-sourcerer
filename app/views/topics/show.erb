@@ -1,7 +1,8 @@
 <h2><%= @topic.name %></h2>
 <p><strong>Associated Subject: </strong><%= @topic.subject.name %></p>
+<p><strong>Description: </strong><%= @topic.description %></p>
 <p><%= sources_in_topic(@topic).count %> source<%= "s" if sources_in_topic(@topic).count!=1 %></p>
-<p>edit || delete</p>
+<p><a href="/topics/<%= @topic.id %>/edit">Edit Topic</a> || delete</p>   
 <hr>
 
 <% sources_in_topic(@topic).each do |s| %>

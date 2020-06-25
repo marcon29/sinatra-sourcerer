@@ -1,0 +1,26 @@
+<h2>Edit <%= @subject.name %></h2>
+
+<form method="post" action="/subjects/<%= @subject.id %>">
+    <input id="hidden" type="hidden" name="_method" value="patch">
+    
+    
+    <h3>Subject Info</h3>
+    <p><label for="name">Name: </label>
+        <input id="name" type="text" name="subject[name]" value="<%= @subject.name %>"></p>
+    <p><label for="description">Description: </label>
+        <textarea id="description" type="text" name="subject[description]"><%= @subject.description %></textarea></p>
+
+    <h3>Associated Topics</h3>
+    <h4>Select from Existing Topics</h4>
+    <input id="hidden" type="hidden" name="subject[topic_ids][]">
+    <% @topics.each do |t| %>
+        <p><input type="checkbox" name="subject[topic_ids][]" value="<%= t.id %>" <%='checked' if @subject.topics.include?(t) %>> <%= t.name %></p>
+    <% end %>
+    
+    <h4>Associate New Topic</h4>
+    <p>add when new topic functionality ready</p>
+    <p>new topic must be associated with subject</p>
+
+    <p><input type="submit" value="Update"></p>
+</form>
+

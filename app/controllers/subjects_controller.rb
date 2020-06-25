@@ -10,7 +10,17 @@ class SubjectsController < AppController
     end    
     
     # update routes ###############################
-
+    get '/subjects/:id/edit' do
+        @subject = Subject.find(params[:id])
+        @topics = Topic.all        
+        erb :"/subjects/edit"
+    end
+  
+    patch '/subjects/:id' do
+        subject = Subject.find(params[:id])
+        subject.update(params[:subject])
+        redirect "/subjects"
+    end
         
     # delete routes ###############################
 

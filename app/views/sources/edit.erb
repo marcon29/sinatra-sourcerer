@@ -29,8 +29,9 @@
         <p><input type="checkbox" name="source[topic_ids][]" value="<%= t.id %>" <%='checked' if @source.topics.include?(t) %>> <%= t.name %></p>
     <% end %>
     
-    <h4>Add New Topic</h4>
+    <h4>Associate New Topic</h4>
     <p>add when new topic functionality ready</p>
+    <p>new topic must be associated with subject</p>
 
     <p><input type="submit" value="Update"></p>
 </form>

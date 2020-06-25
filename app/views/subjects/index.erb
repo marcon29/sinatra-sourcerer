@@ -2,9 +2,14 @@
 
 <% @subjects.each do |s| %>
     <section>
-        <h3><%= s.name %> || <%= topics_in_subject(s).count %> topic<%= "s" if topics_in_subject(s).count!=1 %></h3>
-        <p><%= s.description %>|| edit || delete</p>
+        <h3><%= s.name %></h3>
+        <p><strong>Description: </strong><%= s.description %></p>
+        <p>
+            <a href="/subjects/<%= s.id %>/edit">Edit Subject</a> ||
+            delete
+        </p>
         
+        <h4><%= topics_in_subject(s).count %> Topic<%= "s" if topics_in_subject(s).count!=1 %></h4>
         <dl>
             <% topics_in_subject(s).each do |t| %>
                 <dt><a href="/topics/<%= t.id %>"><%= t.name %></a> || edit || delete</dt>
