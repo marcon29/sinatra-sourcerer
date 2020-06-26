@@ -60,5 +60,9 @@ class SourcesController < AppController
   
   
     # delete routes ###############################
-
+    delete '/sources/:slug' do
+        source = Source.find_by_slug(params[:slug])
+        source.destroy
+        redirect "/subjects"        
+    end
   end

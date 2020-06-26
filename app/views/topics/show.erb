@@ -2,7 +2,18 @@
 <p><strong>Associated Subject: </strong><%= @topic.subject.name %></p>
 <p><strong>Description: </strong><%= @topic.description %></p>
 <p><%= sources_in_topic(@topic).count %> source<%= "s" if sources_in_topic(@topic).count!=1 %></p>
-<p><a href="/topics/<%= @topic.slug %>/edit">Edit Topic</a> || delete</p>   
+
+
+<div>        
+    <form style="display: inline;" method="get" action="/topics/<%= @topic.slug %>/edit">
+        <input type="submit" value="Edit Topic">
+    </form>
+
+    <form style="display: inline;" method="post" action="/topics/<%= @topic.slug %>">
+        <input id="hidden" type="hidden" name="_method" value="delete">
+        <input type="submit" value="Delete Topic">
+    </form>
+</div>
 <hr>
 
 <% sources_in_topic(@topic).each do |s| %>
@@ -12,11 +23,20 @@
         <p><strong>Publication: </strong><%= s.pub %> || <strong>Media Type: </strong><%= s.media_type %></p>
         <p><strong>Synopsis: </strong><%= s.synopsis %></p>        
 
-        <p>
-            <a href="/sources/<%= s.slug %>">Source Details</a> || 
-            <a href="/sources/<%= s.slug %>/edit">Edit Source</a> || 
-            delete
-        </p>        
+        <div>
+            <form style="display: inline;" method="get" action="/sources/<%= s.slug %>">
+                <input type="submit" value="Source Details">
+            </form>
+
+            <form style="display: inline;" method="get" action="/sources/<%= s.slug %>/edit">
+                <input type="submit" value="Edit Source">
+            </form>
+
+            <form style="display: inline;" method="post" action="/sources/<%= s.slug %>">
+                <input id="hidden" type="hidden" name="_method" value="delete">
+                <input type="submit" value="Delete Source">
+            </form>
+        </div>
         <hr>
     </section>
 <% end %>

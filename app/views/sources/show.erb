@@ -4,11 +4,20 @@
         <%= t.name %><%= ", " if t.id != @source.topics.last.id %>
     <% end %>
 </h3>
-<p>
-    <a href="http://<%= @source.link %>" target="_blank">View Source</a> ||
-    <a href="/sources/<%= @source.slug %>/edit">Edit Source</a> ||
-    delete
-</p>
+<div>
+    <form style="display: inline;" method="get" action="http://<%= @source.link %>" target="_blank">
+        <input type="submit" value="View Source">
+    </form>
+
+    <form style="display: inline;" method="get" action="/sources/<%= @source.slug %>/edit">
+        <input type="submit" value="Edit Source">
+    </form>
+
+    <form style="display: inline;" method="post" action="/sources/<%= @source.slug %>">
+        <input id="hidden" type="hidden" name="_method" value="delete">
+        <input type="submit" value="Delete">
+    </form>
+</div>
 <br><hr><br>
 
 <section>
@@ -42,4 +51,5 @@
     <h4>Last Updated:</h4>
     <p><%= @source.updated_at %></p>
 </section>
+
 

@@ -4,15 +4,22 @@
     <section>
         <h3><%= s.name %></h3>
         <p><strong>Description: </strong><%= s.description %></p>
-        <p>
-            <a href="/subjects/<%= s.slug %>/edit">Edit Subject</a> ||
-            delete
-        </p>
+        <div>        
+            <form style="display: inline;" method="get" action="/subjects/<%= s.slug %>/edit">
+                <input type="submit" value="Edit Subject">
+            </form>
+        
+            <form style="display: inline;" method="post" action="/subjects/<%= s.slug %>">
+                <input id="hidden" type="hidden" name="_method" value="delete">
+                <input type="submit" value="Delete Subject">
+            </form>
+        </div>
+
         
         <h4><%= topics_in_subject(s).count %> Topic<%= "s" if topics_in_subject(s).count!=1 %></h4>
         <dl>
             <% topics_in_subject(s).each do |t| %>
-                <dt><a href="/topics/<%= t.slug %>"><%= t.name %></a> || edit || delete</dt>
+                <dt><a href="/topics/<%= t.slug %>"><%= t.name %></a></dt>
                 <dd><%= t.description %></dd>
             <% end %>
         </dl>

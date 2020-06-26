@@ -40,11 +40,16 @@ class TopicsController < AppController
             subject = Subject.create(params[:subject])
             subject.topics << topic
         end
-        
+
         redirect "/topics/#{topic.slug}"
     end
         
     # delete routes ###############################
+    delete '/topics/:slug' do
+        # source = Source.find_by_slug(params[:slug])
+        # source.destroy        
+        redirect "/subjects"        
+    end
 
 
 
