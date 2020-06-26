@@ -46,26 +46,26 @@ class TopicsController < AppController
         
     # delete routes ###############################
     delete '/topics/:slug' do        
-        topic = Topic.find_by_slug(params[:slug])
-        orphans = find_orphans(topic)
+        @topic = Topic.find_by_slug(params[:slug])
+        @orphans = find_orphans(@topic)
+        @topics = Topic.all
 
-        if orphans.empty?
-            # delete item
-        else
-            # go through reassignment process
+        if params[:reassign]
+            params[:reassign].each do |key, value|                
+                if value[:topic_ids]
+                    source = Source.find(value[:id])
+                    source.update(topic_ids: value[:topic_ids])
+                end
+            end
+            
+            @orphans = find_orphans(@topic)
         end
 
-        # topic.destroy
-        # redirect "/subjects"
-        redirect "/topics/#{topic.slug}"
+        if @orphans.empty?
+            @topic.destroy
+            redirect "/subjects"
+        else
+            erb :"/topics/reassign"
+        end
     end
-
-
-
-
-
-    
-
-
-
 end

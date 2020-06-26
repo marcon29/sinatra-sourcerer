@@ -1,0 +1,26 @@
+<h2>Reassign Sources</h2>
+<p>You have sources currently assigned to <strong><%= @topic.name %></strong>.</p>
+<p>You must reassign these sources to finish deleting your topic.</p>
+<hr>
+
+<form method="post" action="/topics/<%= @topic.slug %>">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+
+    <% @orphans.each do |o| %>
+        
+        <h3><%= o.name %></h3>
+        
+        <h4>Select Topic(s) to Move Source To</h4>
+        <% @topics.each do |t| %>
+            <% if t != @topic %>
+                <input id="hidden" type="hidden" name="reassign[<%= o.slug %>][id]" value="<%= o.id %>">
+                <p><input type="checkbox" name="reassign[<%= o.slug %>][topic_ids][]" value="<%= t.id %>"> <%= t.name %></p>
+            <% end %>
+        <% end %>
+        <hr>
+    <% end %>
+
+    
+    <p><input type="submit" value="Reassign"></p>
+</form>
+

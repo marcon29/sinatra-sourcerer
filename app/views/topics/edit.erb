@@ -14,7 +14,7 @@
     <h4>Select from Existing Subjects</h4>
     <% @subjects.each do |s| %>
         <p><label for="<%= s.name %>"><%= s.name %></label>
-            <input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>" <%='checked' if @topic.subject == s %>></p>       
+            <input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>" <%='checked' if @topic.subject == s %>></p>
     <% end %>
     
     <h4>Associate New Subject</h4>

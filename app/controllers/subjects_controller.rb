@@ -45,19 +45,25 @@ class SubjectsController < AppController
         
     # delete routes ###############################
     delete '/subjects/:slug' do
-        subject = Subject.find_by_slug(params[:slug])
+        @subject = Subject.find_by_slug(params[:slug])
+        @orphans = find_orphans(@subject)
+        @subjects = Subject.all
 
-        orphans = find_orphans(subject)
-
-        if orphans.empty?
-            # delete item
-        else
-            # go through reassignment process
+        if params[:reassign]
+            params[:reassign].each do |key, value|
+                if value[:subject_id]
+                    topic = Topic.find(value[:id])
+                    topic.update(subject_id: value[:subject_id])
+                end
+            end
+            @orphans = find_orphans(@subject)
         end
 
-        binding.pry
-        # subject.destroy
-        redirect "/subjects"
-    end    
-
+        if @orphans.empty?
+            @subject.destroy
+            redirect "/subjects"
+        else
+            erb :"/subjects/reassign"
+        end
+    end
 end

@@ -1,0 +1,27 @@
+<h2>Reassign Topics</h2>
+<p>You have topics currently assigned to <strong><%= @subject.name %></strong>.</p>
+<p>You must reassign these topics to finish deleting your subject.</p>
+<hr>
+
+<form method="post" action="/subjects/<%= @subject.slug %>">
+    <input id="hidden" type="hidden" name="_method" value="delete">
+
+    <% @orphans.each do |o| %>
+        
+        <h3><%= o.name %></h3>
+        
+        <h4>Select Subject to Move Topic To</h4>
+        <% @subjects.each do |s| %>
+            <% if s != @subject %>
+                <input id="hidden" type="hidden" name="reassign[<%= o.slug %>][id]" value="<%= o.id %>">
+                <p><label for="<%= s.name %>"><%= s.name %></label>
+                    <input id="<%= s.name %>" type="radio" name="reassign[<%= o.slug %>][subject_id]" value="<%= s.id %>"></p>
+            <% end %>
+        <% end %>
+        <hr>
+    <% end %>
+
+    
+    <p><input type="submit" value="Reassign"></p>
+</form>
+

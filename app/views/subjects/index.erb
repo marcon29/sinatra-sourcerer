@@ -19,7 +19,10 @@
         <h4><%= topics_in_subject(s).count %> Topic<%= "s" if topics_in_subject(s).count!=1 %></h4>
         <dl>
             <% topics_in_subject(s).each do |t| %>
-                <dt><a href="/topics/<%= t.slug %>"><%= t.name %></a></dt>
+                <dt>
+                    <a href="/topics/<%= t.slug %>"><%= t.name %></a>
+                    <%= sources_in_topic(t).count %> Source<%= "s" if sources_in_topic(t).count!=1 %>                
+                </dt>
                 <dd><%= t.description %></dd>
             <% end %>
         </dl>
