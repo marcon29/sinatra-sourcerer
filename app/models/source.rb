@@ -12,4 +12,8 @@ class Source < ActiveRecord::Base
     def slug
         self.name.gsub(" ", "-").scan(/[[^\s\W]-]/).join.downcase
     end
+
+    def link
+        self.url.downcase.gsub(/(https:\/\/|http:\/\/)/, "")
+    end
 end

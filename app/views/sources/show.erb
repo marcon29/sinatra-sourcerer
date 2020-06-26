@@ -5,13 +5,16 @@
     <% end %>
 </h3>
 <p>
-    <a href="http://<%= @source.url %>" target="_blank">View Source</a> ||
+    <a href="http://<%= @source.link %>" target="_blank">View Source</a> ||
     <a href="/sources/<%= @source.slug %>/edit">Edit Source</a> ||
     delete
 </p>
 <br><hr><br>
 
-<section>    
+<section>
+    <h4>URL:</h4>
+    <p><%= @source.url %></p>
+    <br>
     <h4>Publication:</h4>
     <p><%= @source.pub %></p>
     <br>
