@@ -5,19 +5,17 @@ class TopicsController < AppController
         erb :"/topics/new"
     end
 
-    post '/topics' do
-        if !params[:topic][:subject_id] && params[:subject][:name].empty?            
-            redirect "/topics/new"
-        else
-            topic = Topic.create(params[:topic])
-            
-            if !params[:subject][:name].empty?
-                subject = Subject.create(params[:subject])
-                subject.topics << topic
-            end
+    post '/topics' do        
+        redirect "/topics/new" if no_subject_assigned?
+        
+        topic = Topic.create(params[:topic])       
 
-            redirect "/topics/#{topic.id}"
+        if new_subject?
+            subject = Subject.create(params[:subject])
+            subject.topics << topic
         end
+
+        redirect "/topics/#{topic.id}"
     end
   
     # read routes #################################    
@@ -41,6 +39,7 @@ class TopicsController < AppController
     end
         
     # delete routes ###############################
+
 
 
 end

@@ -5,10 +5,9 @@ class SubjectsController < AppController
     end
 
     post '/subjects' do
-        # binding.pry
         subject = Subject.create(params[:subject])
 
-        if !params[:topic][:name].empty?
+        if new_topic?
             topic = Topic.create(params[:topic])
             topic.subject = subject
             topic.save

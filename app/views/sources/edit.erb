@@ -2,7 +2,6 @@
 
 <form method="post" action="/sources/<%= @source.id %>">
     <input id="hidden" type="hidden" name="_method" value="patch">
-    <input id="hidden" type="hidden" name="source[public]" value="false">
     
     <h3>Source Info</h3>
     <p><label for="name">Name: </label>
@@ -20,7 +19,8 @@
     <p><label for="media-type">Media Type: </label>
         <input id="media-type" type="text" name="source[media_type]" value="<%= @source.media_type %>"></p>    
     <p><label for="notes">Notes: </label>
-        <textarea id="notes" type="text" name="source[notes]"><%= @source.notes %></textarea></p>    
+        <textarea id="notes" type="text" name="source[notes]"><%= @source.notes %></textarea></p>
+    <input id="hidden" type="hidden" name="source[public]" value="false">
     <p>Public: <input id="public" type="checkbox" name="source[public]" value="true" <%="checked" if @source.public==true %>></p>
 
     <h3>Associated Topics</h3>

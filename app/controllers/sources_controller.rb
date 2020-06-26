@@ -1,20 +1,31 @@
 class SourcesController < AppController
     # create routes ###############################
-    # get '/sources/new' do
-    #   erb :"/landmarks/new"
-    # end
+    get '/sources/new' do
+        @subjects = Subject.all
+        @topics = Topic.all
+        erb :"/sources/new"
+    end
+
+    post '/sources' do
+        redirect "/sources/new" if no_topic_assigned?
+        source = Source.create(params[:source])
+
+        if new_topic?
+            redirect "/sources/new" if no_subject_assigned?
+            topic = Topic.create(params[:topic])
+
+            if new_subject?
+                subject = Subject.create(params[:subject])
+                subject.topics << topic
+            end
+            
+            topic.sources << source
+        end
+
+        redirect "/sources/#{source.id}"
+    end
   
-    # post '/sources' do    
-    #   landmark = Landmark.create(name: params[:landmark_name], year_completed: params[:landmark_year_completed])    
-    #   redirect "/landmarks/#{landmark.id}"
-    # end
-  
-    # read routes #################################
-    # get '/sources' do
-    #   @sources = Source.all
-    #   erb :"/sources/index"
-    # end
-  
+    # read routes #################################  
     get '/sources/:id' do
         @source = Source.find(params[:id])
         erb :"/sources/show"
