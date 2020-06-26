@@ -3,12 +3,13 @@ class Source < ActiveRecord::Base
     has_many :topics, through: :source_topics
     has_many :subjects, through: :topics
 
+    def self.find_by_slug(url_slug)
+        self.all.find do |obj|
+            obj.slug == url_slug
+        end
+    end    
 
-    # belongs_to :topic
-    # belongs_to :user
-
-    # has_many :user_subject_topic_sources
-    # has_many :users, through: :user_subject_topic_sources
-    # has_many :subjects, through: :user_subject_topic_sources
-    # has_many :topics, through: :user_subject_topic_sources
+    def slug
+        self.name.gsub(" ", "-").scan(/[[^\s\W]-]/).join.downcase
+    end
 end

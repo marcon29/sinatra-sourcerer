@@ -24,15 +24,22 @@ class SubjectsController < AppController
     end    
     
     # update routes ###############################
-    get '/subjects/:id/edit' do
-        @subject = Subject.find(params[:id])
+    get '/subjects/:slug/edit' do
+        @subject = Subject.find_by_slug(params[:slug])
         @topics = Topic.all        
         erb :"/subjects/edit"
     end
   
-    patch '/subjects/:id' do
-        subject = Subject.find(params[:id])
+    patch '/subjects/:slug' do
+        subject = Subject.find_by_slug(params[:slug])
         subject.update(params[:subject])
+
+        if new_topic?
+            topic = Topic.create(params[:topic])
+            topic.subject = subject
+            topic.save
+        end
+
         redirect "/subjects"
     end
         

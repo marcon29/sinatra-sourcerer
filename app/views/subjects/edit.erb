@@ -1,6 +1,6 @@
 <h2>Edit <%= @subject.name %></h2>
 
-<form method="post" action="/subjects/<%= @subject.id %>">
+<form method="post" action="/subjects/<%= @subject.slug %>">
     <input id="hidden" type="hidden" name="_method" value="patch">
     
     
@@ -18,8 +18,10 @@
     <% end %>
     
     <h4>Associate New Topic</h4>
-    <p>add when new topic functionality ready</p>
-    <p>new topic must be associated with subject</p>
+    <p><label for="name">Name: </label>
+        <input id="name" type="text" name="topic[name]"</p>
+    <p><label for="description">Description: </label>
+        <textarea id="description" type="text" name="topic[description]"></textarea></p>
 
     <p><input type="submit" value="Update"></p>
 </form>

@@ -22,12 +22,10 @@ class AppController < Sinatra::Base
     end
 
     def no_subject_assigned?
-        # !params[:topic][:subject_id] && params[:subject][:name].empty?
         !params[:topic][:subject_id] && !new_subject?
     end
     
     def no_topic_assigned?
-        # !params[:source][:topic_id] && params[:topic][:name].empty?
         !params[:source][:topic_ids] && !new_topic?
     end
 

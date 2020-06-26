@@ -15,27 +15,33 @@ class TopicsController < AppController
             subject.topics << topic
         end
 
-        redirect "/topics/#{topic.id}"
+        redirect "/topics/#{topic.slug}"
     end
   
     # read routes #################################    
     # also serves as sources index
-    get '/topics/:id' do        
-        @topic = Topic.find(params[:id])
+    get '/topics/:slug' do        
+        @topic = Topic.find_by_slug(params[:slug])
         erb :"/topics/show"
     end
     
     # update routes ###############################
-    get '/topics/:id/edit' do
-        @topic = Topic.find(params[:id])
+    get '/topics/:slug/edit' do
+        @topic = Topic.find_by_slug(params[:slug])
         @subjects = Subject.all        
         erb :"/topics/edit"
     end
   
-    patch '/topics/:id' do
-        topic = Topic.find(params[:id])        
+    patch '/topics/:slug' do
+        topic = Topic.find_by_slug(params[:slug])
         topic.update(params[:topic])
-        redirect "/topics/#{topic.id}"
+
+        if new_subject?
+            subject = Subject.create(params[:subject])
+            subject.topics << topic
+        end
+        
+        redirect "/topics/#{topic.slug}"
     end
         
     # delete routes ###############################

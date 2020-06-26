@@ -1,6 +1,6 @@
 <h2>Edit <%= @topic.name %></h2>
 
-<form method="post" action="/topics/<%= @topic.id %>">
+<form method="post" action="/topics/<%= @topic.slug %>">
     <input id="hidden" type="hidden" name="_method" value="patch">
     
     <h3>Topic Info</h3>
@@ -17,8 +17,11 @@
             <input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>" <%='checked' if @topic.subject == s %>></p>       
     <% end %>
     
-    <h4>Add New Subject</h4>
-    <p>add when new subject functionality ready</p>
+    <h4>Associate New Subject</h4>
+    <p><label for="name">Name: </label>
+        <input id="name" type="text" name="subject[name]"</p>
+    <p><label for="description">Description: </label>
+        <textarea id="description" type="text" name="subject[description]"></textarea></p>
 
     <p><input type="submit" value="Update"></p>
 </form>

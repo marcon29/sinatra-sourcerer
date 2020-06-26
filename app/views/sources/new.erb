@@ -33,7 +33,7 @@
     <p><label for="description">Description: </label>
         <textarea id="description" type="text" name="topic[description]"></textarea></p>
 
-    <h3>Associate New Topic to Subject (required if new topic)</h3>
+    <h3>Associate Subject to New Topic (required if new topic)</h3>
     <h4>Select from Existing Subjects</h4>
     <% @subjects.each do |s| %>
         <p><label for="<%= s.name %>"><%= s.name %></label>

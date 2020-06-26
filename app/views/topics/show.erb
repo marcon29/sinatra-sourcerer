@@ -2,7 +2,7 @@
 <p><strong>Associated Subject: </strong><%= @topic.subject.name %></p>
 <p><strong>Description: </strong><%= @topic.description %></p>
 <p><%= sources_in_topic(@topic).count %> source<%= "s" if sources_in_topic(@topic).count!=1 %></p>
-<p><a href="/topics/<%= @topic.id %>/edit">Edit Topic</a> || delete</p>   
+<p><a href="/topics/<%= @topic.slug %>/edit">Edit Topic</a> || delete</p>   
 <hr>
 
 <% sources_in_topic(@topic).each do |s| %>
@@ -13,8 +13,8 @@
         <p><strong>Synopsis: </strong><%= s.synopsis %></p>        
 
         <p>
-            <a href="/sources/<%= s.id %>">Source Details</a> || 
-            <a href="/sources/<%= s.id %>/edit">Edit Source</a> || 
+            <a href="/sources/<%= s.slug %>">Source Details</a> || 
+            <a href="/sources/<%= s.slug %>/edit">Edit Source</a> || 
             delete
         </p>        
         <hr>
