@@ -36,6 +36,17 @@ class AppController < Sinatra::Base
     def new_topic?
         !params[:topic][:name].empty?
     end
+
+    def find_orphans(item)
+        req_type = @env["REQUEST_PATH"].split("/")[1]
+        if req_type == "topics"
+            sources_in_topic(item).select { |obj| obj.topic_ids.count <= 1 }
+        elsif req_type == "subjects"
+            topics_in_subject(item)
+        end
+    end
+
+
     
             
 

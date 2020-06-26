@@ -45,11 +45,26 @@ class TopicsController < AppController
     end
         
     # delete routes ###############################
-    delete '/topics/:slug' do
-        # source = Source.find_by_slug(params[:slug])
-        # source.destroy        
-        redirect "/subjects"        
+    delete '/topics/:slug' do        
+        topic = Topic.find_by_slug(params[:slug])
+        orphans = find_orphans(topic)
+
+        if orphans.empty?
+            # delete item
+        else
+            # go through reassignment process
+        end
+
+        # topic.destroy
+        # redirect "/subjects"
+        redirect "/topics/#{topic.slug}"
     end
+
+
+
+
+
+    
 
 
 

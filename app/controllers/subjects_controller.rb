@@ -45,12 +45,19 @@ class SubjectsController < AppController
         
     # delete routes ###############################
     delete '/subjects/:slug' do
-        # source = Source.find_by_slug(params[:slug])
-        # source.destroy
+        subject = Subject.find_by_slug(params[:slug])
+
+        orphans = find_orphans(subject)
+
+        if orphans.empty?
+            # delete item
+        else
+            # go through reassignment process
+        end
+
+        binding.pry
+        # subject.destroy
         redirect "/subjects"
-    end
-
-
-    
+    end    
 
 end
