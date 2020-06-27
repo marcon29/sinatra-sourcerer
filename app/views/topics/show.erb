@@ -1,5 +1,5 @@
-<h2><%= @topic.name %></h2>
-<p><strong>Associated Subject: </strong><%= @topic.subject.name %></p>
+<h2><%= @topic.formatted_name %></h2>
+<p><strong>Associated Subject: </strong><%= @topic.subject.formatted_name %></p>
 <p><strong>Description: </strong><%= @topic.description %></p>
 <p><%= sources_in_topic(@topic).count %> source<%= "s" if sources_in_topic(@topic).count!=1 %></p>
 
@@ -18,7 +18,7 @@
 
 <% sources_in_topic(@topic).each do |s| %>
     <section>
-        <a href="http://<%= s.link %>" target="_blank"><h3><%= s.name %></h3></a>
+        <a href="http://<%= s.link %>" target="_blank"><h3><%= s.formatted_name %></h3></a>
         
         <p><strong>Publication: </strong><%= s.pub %> || <strong>Media Type: </strong><%= s.media_type %></p>
         <p><strong>Synopsis: </strong><%= s.synopsis %></p>        

@@ -1,7 +1,7 @@
-<h2><%= @source.name %></h2>
+<h2><%= @source.formatted_name %></h2>
 <h3>Associated Topics: 
     <% @source.topics.each do |t| %>
-        <a href="/topics/<%= t.slug %>"><%= t.name %></a><%= ", " if t.id != @source.topics.last.id %>
+        <a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a><%= ", " if t.id != @source.topics.last.id %>
     <% end %>
 </h3>
 <div>

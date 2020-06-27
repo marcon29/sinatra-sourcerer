@@ -1,4 +1,4 @@
-<h2>Edit <%= @subject.name %></h2>
+<h2>Edit <%= @subject.formatted_name %></h2>
 
 <form method="post" action="/subjects/<%= @subject.slug %>">
     <input id="hidden" type="hidden" name="_method" value="patch">
@@ -14,7 +14,7 @@
     <h4>Select from Existing Topics</h4>
     <input id="hidden" type="hidden" name="subject[topic_ids][]">
     <% @topics.each do |t| %>
-        <p><input type="checkbox" name="subject[topic_ids][]" value="<%= t.id %>" <%='checked' if @subject.topics.include?(t) %>> <%= t.name %></p>
+        <p><input type="checkbox" name="subject[topic_ids][]" value="<%= t.id %>" <%='checked' if @subject.topics.include?(t) %>> <%= t.formatted_name %></p>
     <% end %>
     
     <h4>Associate New Topic</h4>

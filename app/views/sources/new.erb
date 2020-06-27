@@ -24,7 +24,7 @@
     <h3>Associate Topics (required)</h3>
     <h4>Select from Existing Topics</h4>
     <% @topics.each do |t| %>
-        <p><input type="checkbox" name="source[topic_ids][]" value="<%= t.id %>"><%= t.name %></p>
+        <p><input type="checkbox" name="source[topic_ids][]" value="<%= t.id %>"><%= t.formatted_name %></p>
     <% end %>
 
     <h4>Associate New Topic (will add to topic selections above)</h4>
@@ -36,7 +36,7 @@
     <h3>Associate Subject to New Topic (required if new topic)</h3>
     <h4>Select from Existing Subjects</h4>
     <% @subjects.each do |s| %>
-        <p><label for="<%= s.name %>"><%= s.name %></label>
+        <p><label for="<%= s.name %>"><%= s.formatted_name %></label>
             <input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>"></p>
     <% end %>
             

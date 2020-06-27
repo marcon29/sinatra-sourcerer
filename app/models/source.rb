@@ -16,4 +16,8 @@ class Source < ActiveRecord::Base
     def link
         self.url.downcase.gsub(/(https:\/\/|http:\/\/)/, "")
     end
+
+    def formatted_name
+        self.name.split.collect { |word| word.capitalize }.join(" ")
+    end
 end
