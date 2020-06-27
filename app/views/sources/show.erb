@@ -34,7 +34,7 @@
     <p><%= @source.author %></p>
     <br>
     <h4>Date Published:</h4>
-    <p><%= @source.pub_date %></p>
+    <p><%= formatted_date(@source.pub_date) %></p>
     <br>
     <h4>Media Type:</h4>
     <p><%= @source.media_type %></p>
@@ -46,10 +46,10 @@
     <p><%= !!@source.public %></p>
     <br>
     <h4>Date Saved:</h4>
-    <p><%= @source.created_at %></p>
+    <p><%= formatted_date(@source.created_at) %></p>
     <br>
     <h4>Last Updated:</h4>
-    <p><%= @source.updated_at %></p>
+    <p><%= formatted_date(@source.updated_at) %></p>
 </section>
 
 

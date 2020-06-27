@@ -20,4 +20,5 @@ class Source < ActiveRecord::Base
     def formatted_name
         self.name.split.collect { |word| word.capitalize }.join(" ")
     end
+
 end
