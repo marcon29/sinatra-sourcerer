@@ -1,32 +1,47 @@
-<h2>Your Subjects & Topics</h2>
+<section class="content-header">
+    <div class="content-header-info">
+        <h2>Your Subjects & Topics</h2>
+    </div>
+</section>
 
 <% @subjects.each do |s| %>
-    <section>
-        <h3><%= s.formatted_name %></h3>
-        <p><strong>Description: </strong><%= s.description %></p>
-        <div>        
-            <form style="display: inline;" method="get" action="/subjects/<%= s.slug %>/edit">
-                <input type="submit" value="Edit Subject">
-            </form>
-        
-            <form style="display: inline;" method="post" action="/subjects/<%= s.slug %>">
-                <input id="hidden" type="hidden" name="_method" value="delete">
-                <input type="submit" value="Delete Subject">
-            </form>
+    <section class="content-item">
+        <div class="content-item-info">
+            <div class="item-info-head">
+                <h3 class="display-horiz"><%= s.formatted_name %></h3>        
+                <form class="crud-button" method="get" action="/subjects/<%= s.slug %>/edit">
+                    <input type="submit" value="Edit Subject">
+                </form>
+            
+                <form class="crud-button" method="post" action="/subjects/<%= s.slug %>">
+                    <input id="hidden" type="hidden" name="_method" value="delete">
+                    <input type="submit" value="Delete Subject">
+                </form>
+                <p><%= s.description %></p>                
+            </div>
+            <hr>
+            <div class="item-info-body">
+                <h4 class="table-header"><%= topics_in_subject(s).count %> Topic<%= "s" if topics_in_subject(s).count!=1 %></h4>
+                <table>                    
+                    <thead>
+                        <tr>
+                            <th>Topic</th>
+                            <th># of Sources</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% topics_in_subject(s).each do |t| %>
+                            <tr>
+                                <td><a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a></td>
+                                <td><%= sources_in_topic(t).count %> Source<%= "s" if sources_in_topic(t).count!=1 %></td>
+                                <td><%= t.description %></td>
+                            </tr>
+                            <% end %>
+                        <tbody>
+                </table>
+            </div>
         </div>
-
-        
-        <h4><%= topics_in_subject(s).count %> Topic<%= "s" if topics_in_subject(s).count!=1 %></h4>
-        <dl>
-            <% topics_in_subject(s).each do |t| %>
-                <dt>
-                    <a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a>
-                    <%= sources_in_topic(t).count %> Source<%= "s" if sources_in_topic(t).count!=1 %>                
-                </dt>
-                <dd><%= t.description %></dd>
-            <% end %>
-        </dl>
-        <hr>
     </section>
 <% end %>
     
