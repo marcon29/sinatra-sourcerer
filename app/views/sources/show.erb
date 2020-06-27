@@ -1,55 +1,61 @@
-<h2><%= @source.formatted_name %></h2>
-<h3>Associated Topics: 
-    <% @source.topics.each do |t| %>
-        <a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a><%= ", " if t.id != @source.topics.last.id %>
-    <% end %>
-</h3>
-<div>
-    <form style="display: inline;" method="get" action="http://<%= @source.link %>" target="_blank">
-        <input type="submit" value="View Source">
-    </form>
+<section class="content-header">
+    <div class="content-header-info">
+        <h2><%= @source.formatted_name %></h2>
+        <h3>Associated Topics: 
+            <% @source.topics.each do |t| %>
+                <a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a><%= ", " if t.id != @source.topics.last.id %>
+            <% end %>
+        </h3>
 
-    <form style="display: inline;" method="get" action="/sources/<%= @source.slug %>/edit">
-        <input type="submit" value="Edit Source">
-    </form>
+        <form class="crud-button" method="get" action="http://<%= @source.link %>" target="_blank">
+            <input type="submit" value="View Source">
+        </form>
 
-    <form style="display: inline;" method="post" action="/sources/<%= @source.slug %>">
-        <input id="hidden" type="hidden" name="_method" value="delete">
-        <input type="submit" value="Delete">
-    </form>
-</div>
-<br><hr><br>
+        <form class="crud-button" method="get" action="/sources/<%= @source.slug %>/edit">
+            <input type="submit" value="Edit Source">
+        </form>
 
-<section>
-    <h4>URL:</h4>
-    <p><%= @source.url %></p>
-    <br>
-    <h4>Publication:</h4>
-    <p><%= @source.pub %></p>
-    <br>
-    <h4>Synopsis:</h4>
-    <p><%= @source.synopsis %></p>
-    <br>
-    <h4>Author:</h4>
-    <p><%= @source.author %></p>
-    <br>
-    <h4>Date Published:</h4>
-    <p><%= formatted_date(@source.pub_date) %></p>
-    <br>
-    <h4>Media Type:</h4>
-    <p><%= @source.media_type %></p>
-    <br>
-    <h4>Notes:</h4>
-    <p><%= @source.notes %></p>
-    <br>
-    <h4>Public:</h4>
-    <p><%= !!@source.public %></p>
-    <br>
-    <h4>Date Saved:</h4>
-    <p><%= formatted_date(@source.created_at) %></p>
-    <br>
-    <h4>Last Updated:</h4>
-    <p><%= formatted_date(@source.updated_at) %></p>
+        <form class="crud-button" method="post" action="/sources/<%= @source.slug %>">
+            <input id="hidden" type="hidden" name="_method" value="delete">
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+</section>
+
+<section class="content-item">
+    <div class="content-item-info">
+        <div class="source-info">
+            <h4>URL:</h4>
+            <p><%= @source.url %></p>
+
+            <h4>Publication:</h4>
+            <p><%= @source.pub %></p>
+
+            <h4>Synopsis:</h4>
+            <p><%= @source.synopsis %></p>
+
+            <h4>Author:</h4>
+            <p><%= @source.author %></p>
+
+            <h4>Date Published:</h4>
+            <p><%= formatted_date(@source.pub_date) %></p>
+
+            <h4>Media Type:</h4>
+            <p><%= @source.media_type %></p>
+
+            <h4>Notes:</h4>
+            <p><%= @source.notes %></p>
+
+            <h4>Public:</h4>
+            <p><%= !!@source.public %></p>
+
+            <h4>Date Saved:</h4>
+            <p><%= formatted_date(@source.created_at) %></p>
+
+            <h4>Last Updated:</h4>
+            <p><%= formatted_date(@source.updated_at) %></p>
+        </div>
+    </div>
 </section>
 
 

@@ -73,7 +73,15 @@ html {
 
     .table-header {
       margin-bottom: 0;
-    }    
+    }
+
+    .source-info h4 {
+      margin-bottom: 0;
+    }
+
+    .source-info p {
+      margin-top: 0;
+    }
 
     footer {
       background-color: #777777;
