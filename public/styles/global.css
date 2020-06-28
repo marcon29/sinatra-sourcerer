@@ -136,5 +136,33 @@ input[type=text] {
 }
 
 
+/* link styling ******************************************** */
+a {
+  outline: none;
+  text-decoration: none;
+}
 
+a:link {
+  /* color: rgb(47, 63, 99); */
+  color: rgb(83, 108, 165);
+}
 
+nav a:link, footer a:link {
+  color: rgb(47, 63, 99);
+}
+
+a:visited {
+  color: rgb(83, 108, 165);
+}
+
+nav a:visited, footer a:visited {
+  color: rgb(47, 63, 99);
+}
+
+a:focus, a:hover {
+  border-bottom: solid;
+}
+
+a:active {
+  background-color: #dddddd;
+}
