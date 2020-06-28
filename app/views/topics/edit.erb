@@ -1,28 +1,42 @@
-<h2>Edit <%= @topic.formatted_name %></h2>
+<section class="content-header">
+    <div class="content-header-info">
+        <h2>Edit <%= @topic.formatted_name %></h2>
+    </div>
+</section>
 
-<form method="post" action="/topics/<%= @topic.slug %>">
-    <input id="hidden" type="hidden" name="_method" value="patch">
-    
-    <h3>Topic Info</h3>
-    <p><label for="name">Name: </label>
-        <input id="name" type="text" name="topic[name]" value="<%= @topic.name %>"></p>
-    <p><label for="description">Description: </label>
-        <textarea id="description" type="text" name="topic[description]"><%= @topic.description %></textarea></p>
+<section class="content-item">
+    <div class="content-item-info">
+        <form class="new-edit-form" method="post" action="/topics/<%= @topic.slug %>">
+            <input id="hidden" type="hidden" name="_method" value="patch">
+
+            <section>
+                <h3>Topic Info</h3>
+                <p><label for="name">Name: </label>
+                    <input id="name" type="text" name="topic[name]" value="<%= @topic.name %>"></p>
+                <p><label for="description">Description: </label>
+                    <textarea id="description" type="text" name="topic[description]"><%= @topic.description %></textarea></p>
+            </section>
+            
+            <section>
+                <h3>Associated Subjects (required)</h3>
+                <h4>Select from Existing Subjects</h4>
+                <% @subjects.each do |s| %>
+                    <p><input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>" <%='checked' if @topic.subject == s %>>
+                        <label for="<%= s.name %>"><%= s.formatted_name %></label></p>
+                <% end %>
+                
+                <h4>Associate New Subject</h4>
+                <p><label for="name">Name: </label>
+                    <input id="name" type="text" name="subject[name]"</p>
+                <p><label for="description">Description: </label>
+                    <textarea id="description" type="text" name="subject[description]"></textarea></p>
+            </section>
+
+            <p><input type="submit" value="Update"></p>
+        </form>
+    </div>
+</section>
 
 
-    <h3>Associated Subjects</h3>
-    <h4>Select from Existing Subjects</h4>
-    <% @subjects.each do |s| %>
-        <p><label for="<%= s.name %>"><%= s.formatted_name %></label>
-            <input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>" <%='checked' if @topic.subject == s %>></p>
-    <% end %>
-    
-    <h4>Associate New Subject</h4>
-    <p><label for="name">Name: </label>
-        <input id="name" type="text" name="subject[name]"</p>
-    <p><label for="description">Description: </label>
-        <textarea id="description" type="text" name="subject[description]"></textarea></p>
 
-    <p><input type="submit" value="Update"></p>
-</form>
 

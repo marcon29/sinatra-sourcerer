@@ -1,28 +1,42 @@
-<h2>Edit <%= @subject.formatted_name %></h2>
+<section class="content-header">
+    <div class="content-header-info">
+        <h2>Edit <%= @subject.formatted_name %></h2>
+    </div>
+</section>
 
-<form method="post" action="/subjects/<%= @subject.slug %>">
-    <input id="hidden" type="hidden" name="_method" value="patch">
-    
-    
-    <h3>Subject Info</h3>
-    <p><label for="name">Name: </label>
-        <input id="name" type="text" name="subject[name]" value="<%= @subject.name %>"></p>
-    <p><label for="description">Description: </label>
-        <textarea id="description" type="text" name="subject[description]"><%= @subject.description %></textarea></p>
 
-    <h3>Associated Topics</h3>
-    <h4>Select from Existing Topics</h4>
-    <input id="hidden" type="hidden" name="subject[topic_ids][]">
-    <% @topics.each do |t| %>
-        <p><input type="checkbox" name="subject[topic_ids][]" value="<%= t.id %>" <%='checked' if @subject.topics.include?(t) %>> <%= t.formatted_name %></p>
-    <% end %>
-    
-    <h4>Associate New Topic</h4>
-    <p><label for="name">Name: </label>
-        <input id="name" type="text" name="topic[name]"</p>
-    <p><label for="description">Description: </label>
-        <textarea id="description" type="text" name="topic[description]"></textarea></p>
+<section class="content-item">
+    <div class="content-item-info">
+        <form class="new-edit-form" method="post" action="/subjects/<%= @subject.slug %>">
+            <input id="hidden" type="hidden" name="_method" value="patch">
 
-    <p><input type="submit" value="Update"></p>
-</form>
+            <section>
+                <h3>Subject Info</h3>
+                <p><label for="name">Name: </label>
+                    <input id="name" type="text" name="subject[name]" value="<%= @subject.name %>"></p>
+                <p><label for="description">Description: </label>
+                    <textarea id="description" type="text" name="subject[description]"><%= @subject.description %></textarea></p>
+            </section>
+            
+            <section>
+                <h3>Associated Topics</h3>
+                <h4>Select from Existing Topics</h4>
+                <input id="hidden" type="hidden" name="subject[topic_ids][]">
+                <% @topics.each do |t| %>
+                    <p><input type="checkbox" name="subject[topic_ids][]" value="<%= t.id %>" <%='checked' if @subject.topics.include?(t) %>> <%= t.formatted_name %></p>
+                <% end %>
+                
+                <h4>Associate New Topic</h4>
+                <p><label for="name">Name: </label>
+                    <input id="name" type="text" name="topic[name]"</p>
+                <p><label for="description">Description: </label>
+                    <textarea id="description" type="text" name="topic[description]"></textarea></p>
+            </section>
+
+            <p><input type="submit" value="Update"></p>
+        </form>
+    </div>
+</section>
+
+
 

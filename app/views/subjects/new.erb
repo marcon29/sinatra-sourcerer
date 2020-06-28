@@ -1,19 +1,29 @@
-<h2>Add New Subject</h2>
+<section class="content-header">
+    <div class="content-header-info">
+        <h2>Add New Subject</h2>
+    </div>
+</section>
 
-<form method="post" action="/subjects">
-    <h3>Subject Info</h3>
-    <p><label for="name">Name: </label>
-        <input id="name" type="text" name="subject[name]"</p>
-    <p><label for="description">Description: </label>
-        <textarea id="description" type="text" name="subject[description]"></textarea></p>
-    <br>
+<section class="content-item">
+    <div class="content-item-info">        
+        <form class="new-edit-form" method="post" action="/subjects">        
+            <section>
+                <h3>Subject Info</h3>
+                <p><label for="name">Name: </label>
+                    <input id="name" type="text" name="subject[name]"</p>
+                <p><label for="description">Description: </label>
+                    <textarea id="description" type="text" name="subject[description]"></textarea></p>
+            </section>
+            
+            <section>
+                <h3>Associate New Topic (optional)</h3>
+                <p><label for="name">Name: </label>
+                    <input id="name" type="text" name="topic[name]"</p>
+                <p><label for="description">Description: </label>
+                    <textarea id="description" type="text" name="topic[description]"></textarea></p>
+            </section>
 
-    <h3>Associate New Topic (optional)</h3>
-    <p><label for="name">Name: </label>
-        <input id="name" type="text" name="topic[name]"</p>
-    <p><label for="description">Description: </label>
-        <textarea id="description" type="text" name="topic[description]"></textarea></p>
-
-    <p><input type="submit" value="Add Subject"></p>
-</form>
-
+            <p><input type="submit" value="Add Subject"></p>
+        </form>
+    </div>
+</section>

@@ -1,51 +1,64 @@
-<h2>Add New Source</h2>
+<section class="content-header">
+    <div class="content-header-info">
+        <h2>Add New Source</h2>
+    </div>
+</section>
 
-<form method="post" action="/sources">    
-    <h3>Source Info</h3>
-    <p><label for="name">Name: </label>
-        <input id="name" type="text" name="source[name]"</p>
-    <p><label for="url">URL: </label>
-        <input id="url" type="text" name="source[url]"</p>
-    <p><label for="publication">Publication: </label>
-        <input id="publication" type="text" name="source[pub]"</p>    
-    <p><label for="synopsis">Synopsis: </label>
-        <textarea id="synopsis" type="text" name="source[synopsis]"></textarea></p>    
-    <p><label for="author">Author: </label>
-        <input id="author" type="text" name="source[author]"</p>    
-    <p><label for="date-published">Date Published: </label>
-        <input id="date-published" type="date" name="source[pub_date]"</p>    
-    <p><label for="media-type">Media Type: </label>
-        <input id="media-type" type="text" name="source[media_type]"</p>    
-    <p><label for="notes">Notes: </label>
-        <textarea id="notes" type="text" name="source[notes]"></textarea></p>    
-    <input id="hidden" type="hidden" name="source[public]" value="false">
-    <p>Public: <input id="public" type="checkbox" name="source[public]" value="true"></p>
-
-    <h3>Associate Topics (required)</h3>
-    <h4>Select from Existing Topics</h4>
-    <% @topics.each do |t| %>
-        <p><input type="checkbox" name="source[topic_ids][]" value="<%= t.id %>"><%= t.formatted_name %></p>
-    <% end %>
-
-    <h4>Associate New Topic (will add to topic selections above)</h4>
-    <p><label for="name">Name: </label>
-        <input id="name" type="text" name="topic[name]"</p>
-    <p><label for="description">Description: </label>
-        <textarea id="description" type="text" name="topic[description]"></textarea></p>
-
-    <h3>Associate Subject to New Topic (required if new topic)</h3>
-    <h4>Select from Existing Subjects</h4>
-    <% @subjects.each do |s| %>
-        <p><label for="<%= s.name %>"><%= s.formatted_name %></label>
-            <input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>"></p>
-    <% end %>
+<section class="content-item">
+    <div class="content-item-info">
+        <form class="new-edit-form" method="post" action="/sources">
+            <section>
+                <h3>Source Info</h3>
+                <p><label for="name">Name: </label>
+                    <input id="name" type="text" name="source[name]"</p>
+                <p><label for="url">URL: </label>
+                    <input id="url" type="text" name="source[url]"</p>
+                <p><label for="publication">Publication: </label>
+                    <input id="publication" type="text" name="source[pub]"</p>
+                <p><label for="synopsis">Synopsis: </label>
+                    <textarea id="synopsis" type="text" name="source[synopsis]"></textarea></p>
+                <p><label for="author">Author: </label>
+                    <input id="author" type="text" name="source[author]"</p>
+                <p><label for="date-published">Date Published: </label>
+                    <input id="date-published" type="date" name="source[pub_date]"</p>
+                <p><label for="media-type">Media Type: </label>
+                    <input id="media-type" type="text" name="source[media_type]"</p>
+                <p><label for="notes">Notes: </label>
+                    <textarea id="notes" type="text" name="source[notes]"></textarea></p>
+                <input id="hidden" type="hidden" name="source[public]" value="false">
+                <p>Public: <input id="public" type="checkbox" name="source[public]" value="true"></p>
+            </section>
             
-    <h4>Associate New Subject (will override subject selection above)</h4>
-    <p><label for="name">Name: </label>
-        <input id="name" type="text" name="subject[name]"</p>
-    <p><label for="description">Description: </label>
-        <textarea id="description" type="text" name="subject[description]"></textarea></p>
-
-    <p><input type="submit" value="Add Source"></p>
-</form>
-
+            <section>
+                <h3>Associate Topics (required)</h3>
+                <h4>Select from Existing Topics</h4>
+                <% @topics.each do |t| %>
+                    <p><input type="checkbox" name="source[topic_ids][]" value="<%= t.id %>"><%= t.formatted_name %></p>
+                <% end %>
+            
+                <h4>Associate New Topic (will add to topic selections above)</h4>
+                <p><label for="name">Name: </label>
+                    <input id="name" type="text" name="topic[name]"</p>
+                <p><label for="description">Description: </label>
+                    <textarea id="description" type="text" name="topic[description]"></textarea></p>
+            </section>
+            
+            <section>
+                <h3>Associate Subject to New Topic (required if new topic)</h3>
+                <h4>Select from Existing Subjects</h4>
+                <% @subjects.each do |s| %>
+                    <p><input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>">
+                        <label for="<%= s.name %>"><%= s.formatted_name %></label></p>
+                <% end %>
+                        
+                <h4>Associate New Subject (will override subject selection above)</h4>
+                <p><label for="name">Name: </label>
+                    <input id="name" type="text" name="subject[name]"</p>
+                <p><label for="description">Description: </label>
+                    <textarea id="description" type="text" name="subject[description]"></textarea></p>
+            </section>
+        
+            <p><input type="submit" value="Add Source"></p>
+        </form>
+    </div>
+</section>
