@@ -20,7 +20,7 @@ header {
   position: fixed;
   top: 0px;
   width: 100%;
-  height: 150px;
+  height: 180px;
 }
 
 nav ul li {
@@ -31,7 +31,7 @@ nav ul li {
 
 main {
   text-align: left;
-  margin-top: 150px;
+  margin-top: 180px;
   width: 100%;
 }
 
@@ -44,7 +44,7 @@ footer {
   width: 100%;
 }
 
-footer h2 {
+footer div {
   margin-top: 30px;
 }
 
@@ -57,7 +57,7 @@ h2, h3 {
   background-color: #D4F5F5;
   width: 100%;
   position: sticky;
-  top: 150px;
+  top: 180px;
   padding: 20px 0;
 }
 
