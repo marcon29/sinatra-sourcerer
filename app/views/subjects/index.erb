@@ -21,7 +21,7 @@
             </div>
             <hr>
             <div class="item-info-body">
-                <h4 class="table-header"><%= topics_in_subject(s).count %> Topic<%= "s" if topics_in_subject(s).count!=1 %></h4>
+                <h4 class="table-header"><%= s.topics.count %> Topic<%= "s" if s.topics.count!=1 %></h4>
                 <table>                    
                     <thead>
                         <tr>
@@ -31,10 +31,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% topics_in_subject(s).each do |t| %>
+                        <% s.topics.each do |t| %>
                             <tr>
                                 <td><a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a></td>
-                                <td><%= sources_in_topic(t).count %> Source<%= "s" if sources_in_topic(t).count!=1 %></td>
+                                <td><%= t.sources.count %> Source<%= "s" if t.sources.count!=1 %></td>
                                 <td><%= t.description %></td>
                             </tr>
                             <% end %>

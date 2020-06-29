@@ -9,12 +9,12 @@
             <input type="submit" value="Delete Topic">
         </form>
         <p><strong>Associated Subject: </strong><%= @topic.subject.formatted_name %></p>
-        <p><strong>Total Sources: </strong><%= sources_in_topic(@topic).count %></p>
+        <p><strong>Total Sources: </strong><%= @topic.sources.count %></p>
         <p><%= @topic.description %></p>
     </div>
 </section>
 
-<% sources_in_topic(@topic).each do |s| %>
+<% @topic.sources.each do |s| %>
     <section class="content-item">
         <div class="content-item-info">
             <h3><a href="http://<%= s.link %>" target="_blank"><%= s.formatted_name %></a></h3>
