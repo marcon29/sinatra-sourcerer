@@ -5,17 +5,26 @@ class TopicsController < AppController
         erb :"/topics/new"
     end
 
-    post '/topics' do        
-        redirect "/topics/new" if no_subject_assigned?
-        
-        topic = Topic.create(params[:topic])       
+    post '/topics' do
+        topic = Topic.new(params[:topic])
 
-        if new_subject?
-            subject = Subject.create(params[:subject])
-            subject.topics << topic
+        if !topic.valid?
+            if new_subject?
+                subject = Subject.create(params[:subject])
+                subject.topics << topic
+                if subject.save
+                    topic.save
+                    redirect "/topics/#{topic.slug}"
+                else
+                    redirect "/topics/new"
+                end
+            else
+                redirect "/topics/new"
+            end
+        else
+            topic.save
+            redirect "/topics/#{topic.slug}"
         end
-
-        redirect "/topics/#{topic.slug}"
     end
   
     # read routes #################################    

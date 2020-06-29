@@ -5,15 +5,24 @@ class SubjectsController < AppController
     end
 
     post '/subjects' do
-        subject = Subject.create(params[:subject])
+        subject = Subject.new(params[:subject])
 
-        if new_topic?
-            topic = Topic.create(params[:topic])
-            topic.subject = subject
-            topic.save
+        if subject.valid?
+            if new_topic?
+                topic = Topic.create(params[:topic])
+                topic.subject = subject
+                if topic.save
+                    redirect "/subjects"
+                else
+                    redirect "/subjects/new"
+                end
+            else
+                subject.save
+                redirect "/subjects"
+            end            
+        else
+            redirect "/subjects/new"
         end
-        
-        redirect "/subjects"
     end
   
     # read routes #################################

@@ -1,6 +1,8 @@
 class Subject < ActiveRecord::Base
     has_many :topics
     has_many :sources, through: :topics
+    
+    validates :name, presence: true, uniqueness: { case_sensitive: false }
 
     def self.find_by_slug(url_slug)
         self.all.find do |obj|
