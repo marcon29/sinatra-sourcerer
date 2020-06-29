@@ -9,7 +9,7 @@ class SubjectsController < AppController
 
         if subject.valid?
             if new_topic?
-                topic = Topic.create(params[:topic])
+                topic = Topic.new(params[:topic])
                 topic.subject = subject
                 if topic.save
                     redirect "/subjects"
@@ -19,7 +19,7 @@ class SubjectsController < AppController
             else
                 subject.save
                 redirect "/subjects"
-            end            
+            end
         else
             redirect "/subjects/new"
         end
