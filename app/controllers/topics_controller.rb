@@ -10,11 +10,8 @@ class TopicsController < AppController
 
         if new_subject?
             subject = Subject.new(params[:subject])
-            if subject.valid?
-                subject.topics << topic
-            else
-                redirect "/topics/new"
-            end
+            subject.topics << topic
+            redirect "/topics/new" if subject.invalid?
         end
 
         if topic.save
@@ -44,7 +41,7 @@ class TopicsController < AppController
         if new_subject?
             subject = Subject.new(params[:subject])
             subject.topics << topic
-            redirect "/topics/#{params[:slug]}/edit" if !subject.valid?
+            redirect "/topics/#{params[:slug]}/edit" if subject.invalid?
         end
 
         if topic.update(params[:topic])
