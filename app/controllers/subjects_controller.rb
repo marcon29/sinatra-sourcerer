@@ -41,15 +41,19 @@ class SubjectsController < AppController
   
     patch '/subjects/:slug' do
         subject = Subject.find_by_slug(params[:slug])
-        subject.update(params[:subject])
 
         if new_topic?
-            topic = Topic.create(params[:topic])
+            topic = Topic.new(params[:topic])
             topic.subject = subject
-            topic.save
+            redirect "/subjects/#{params[:slug]}/edit" if !topic.valid?
+        end        
+        
+        if subject.update(params[:subject])
+            topic.save if topic
+            redirect "/subjects"
+        else
+            redirect "/subjects/#{params[:slug]}/edit"
         end
-
-        redirect "/subjects"
     end
         
     # delete routes ###############################
