@@ -7,22 +7,26 @@ class SourcesController < AppController
     end
 
     post '/sources' do
-        redirect "/sources/new" if no_topic_assigned?
-        source = Source.create(params[:source])
-
+        source = Source.new(params[:source])
+        
         if new_topic?
-            redirect "/sources/new" if no_subject_assigned?
-            topic = Topic.create(params[:topic])
-
-            if new_subject?
-                subject = Subject.create(params[:subject])
-                subject.topics << topic
-            end
+            topic = Topic.new(params[:topic])
             
-            topic.sources << source
+            if new_subject?
+                subject = Subject.new(params[:subject])
+                subject.topics << topic
+                redirect "/sources/new" if subject.invalid?
+            end
+
+            source.topics << topic    
+            redirect "/sources/new" if topic.invalid?
         end
 
-        redirect "/sources/#{source.slug}"
+        if source.save
+            redirect "/sources/#{source.slug}"
+        else
+            redirect "/sources/new"
+        end
     end
   
     # read routes #################################  
@@ -42,20 +46,26 @@ class SourcesController < AppController
     patch '/sources/:slug' do
         source = Source.find_by_slug(params[:slug])
         source.update(params[:source])
+        redirect "/sources/#{params[:slug]}/edit" if source.invalid?
 
         if new_topic?
-            redirect "/sources/new" if no_subject_assigned?
-            topic = Topic.create(params[:topic])
-
-            if new_subject?
-                subject = Subject.create(params[:subject])
-                subject.topics << topic
-            end
+            topic = Topic.new(params[:topic])
             
-            topic.sources << source
+            if new_subject?
+                subject = Subject.new(params[:subject])
+                subject.topics << topic
+                redirect "/sources/#{params[:slug]}/edit" if subject.invalid?
+            end
+
+            source.topics << topic
+            redirect "/sources/#{params[:slug]}/edit" if topic.invalid?
         end
 
-        redirect "/sources/#{source.slug}"
+        if source.save
+            redirect "/sources/#{source.slug}"
+        else
+            redirect "/sources/#{params[:slug]}/edit"
+        end
     end
   
   

@@ -13,14 +13,6 @@ class AppController < Sinatra::Base
 
 
     # helpers ###############################
-    def no_subject_assigned?
-        !params[:topic][:subject_id] && !new_subject?
-    end
-    
-    def no_topic_assigned?
-        !params[:source][:topic_ids] && !new_topic?
-    end
-
     def new_subject?
         !params[:subject][:name].empty?
     end
@@ -39,7 +31,7 @@ class AppController < Sinatra::Base
     end
 
     def formatted_date(date)
-        date.strftime("%m/%d/%Y")
+        date.strftime("%m/%d/%Y") if date
     end
 
 
