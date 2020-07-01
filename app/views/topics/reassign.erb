@@ -11,7 +11,7 @@
         <form class="new-edit-form" method="post" action="/topics/<%= @topic.slug %>">
             <input id="hidden" type="hidden" name="_method" value="<%= @env["REQUEST_METHOD"] %>">
             
-            <% @orphans.order("name ASC").each do |o| %>
+            <% @orphans.sort_by { |orph| orph.name }.each do |o| %>
                 <section>            
                     <h3><%= o.formatted_name %></h3>
                     
