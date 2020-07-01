@@ -19,11 +19,26 @@ class SourcesController < AppController
             if new_subject?
                 subject = Subject.new(params[:subject])
                 subject.topics << topic
-                redirect "/sources/new" if subject.invalid?
+                if subject.invalid?
+                    source.valid?                    
+                    flash[:message] = (
+                        error_messages(source) <<
+                        error_messages(topic).drop(1) <<
+                        error_messages(subject).drop(1)
+                        ).join("<br>")
+                    redirect "/sources/new" 
+                end
             end
 
-            source.topics << topic    
-            redirect "/sources/new" if topic.invalid?
+            source.topics << topic
+            if topic.invalid?
+                source.valid?
+                flash[:message] = (
+                    error_messages(source) <<
+                    error_messages(topic).drop(1)
+                    ).join("<br>")
+                redirect "/sources/new"
+            end
         end
 
         if source.save
@@ -32,6 +47,8 @@ class SourcesController < AppController
             flash[:message] << " within #{subject.formatted_name}" if subject
             redirect "/sources/#{source.slug}"
         else
+            flash[:message] = error_messages(source).join("<br>")
+            binding.pry
             redirect "/sources/new"
         end
     end

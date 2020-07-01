@@ -5,7 +5,7 @@ class Topic < ActiveRecord::Base
 
     # may need to specify uniqueness only for user, not as a whole???
     validates :name, presence: true, uniqueness: { case_sensitive: false }
-    validates :subject, presence: true
+    validates :subject, presence: { message: "must select or create a subject" }
 
     def self.find_by_slug(url_slug)
         self.all.find do |obj|

@@ -15,7 +15,11 @@ class TopicsController < AppController
         if new_subject?
             subject = Subject.new(params[:subject])
             subject.topics << topic
-            redirect "/topics/new" if subject.invalid?
+
+            if subject.invalid?
+                flash[:message] = error_messages(topic).join("<br>")
+                redirect "/topics/new" 
+            end
         end
 
         if topic.save
@@ -23,6 +27,7 @@ class TopicsController < AppController
             flash[:message] << " within #{subject.formatted_name}" if subject
             redirect "/topics/#{topic.slug}"
         else
+            flash[:message] = error_messages(topic).join("<br>")
             redirect "/topics/new"
         end
     end

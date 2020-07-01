@@ -6,7 +6,7 @@ class Source < ActiveRecord::Base
     # may need to specify uniqueness only for user, not as a whole???
     validates :name, presence: true, uniqueness: { case_sensitive: false }
     # validates :url, presence: true, uniqueness: { case_sensitive: false }
-    validates :topics, presence: true    
+    validates :topics, presence: { message: "must select or create a topic" }
 
     def self.media_options
         [

@@ -33,10 +33,18 @@ class AppController < Sinatra::Base
                 Topic.all.select { |obj| !obj.subject_id }
             end
         end
-    end
+    end    
 
     def formatted_date(date)
         date.strftime("%m/%d/%Y") if date
+    end
+
+    def error_messages(item)
+        msgs = item.errors.messages.collect do |key, msg|
+            messages = msg.collect { |m| "#{m}" }
+            "#{item.class.name} #{key.capitalize}: #{messages.join(", ")}"
+        end
+        msgs.unshift("Operation Failed")
     end
 
 
