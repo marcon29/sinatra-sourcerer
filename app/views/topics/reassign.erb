@@ -1,10 +1,13 @@
 <section class="content-header">
     <div class="content-header-info">
         <h2>Reassign Sources</h2>
-        <p>You have sources currently assigned to <strong><%= @topic.formatted_name %></strong>.</p>
-        <p>You must reassign these sources to finish <%= @env["REQUEST_METHOD"]=="DELETE" ? "deleting" : "updating" %> your topic.</p>
     </div>
 </section>
+
+<p class="flash-message">
+    You have sources currently assigned to <strong><%= @topic.formatted_name %></strong>.<br>
+    You must reassign these sources to finish <%= @env["REQUEST_METHOD"]=="DELETE" ? "deleting" : "updating" %> your topic.
+</p>
 
 <section class="content-item">
     <div class="content-item-info">
@@ -12,9 +15,8 @@
             <input id="hidden" type="hidden" name="_method" value="<%= @env["REQUEST_METHOD"] %>">
             
             <% @orphans.sort_by { |orph| orph.name }.each do |o| %>
-                <section>            
+                <section>
                     <h3><%= o.formatted_name %></h3>
-                    
                     <h4>Select Topic(s) to Move Source To</h4>
                     <% @topics.order("name ASC").each do |t| %>
                         <% if t != @topic %>
@@ -23,16 +25,10 @@
                         <% end %>
                     <% end %>
                 </section>
-            <% end %>            
+            <% end %>
 
             <p><input type="submit" value="Reassign"></p>
         </form>
     </div>
 </section>
-
-
-
-
-
-
 

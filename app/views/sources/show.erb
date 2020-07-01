@@ -31,31 +31,22 @@
         <div class="source-info">
             <h4>URL:</h4>
             <p><%= @source.url %></p>
-
             <h4>Publication:</h4>
             <p><%= @source.pub %></p>
-
             <h4>Synopsis:</h4>
             <p><%= @source.synopsis %></p>
-
             <h4>Author:</h4>
             <p><%= @source.author %></p>
-
             <h4>Date Published:</h4>
             <p><%= formatted_date(@source.pub_date) %></p>
-
             <h4>Media Type:</h4>
             <p><%= @source.media_type %></p>
-
             <h4>Notes:</h4>
             <p><%= @source.notes %></p>
-
             <h4>Public:</h4>
             <p><%= !!@source.public %></p>
-
             <h4>Date Saved:</h4>
             <p><%= formatted_date(@source.created_at) %></p>
-
             <h4>Last Updated:</h4>
             <p><%= formatted_date(@source.updated_at) %></p>
         </div>

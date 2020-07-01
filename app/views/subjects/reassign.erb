@@ -1,20 +1,22 @@
 <section class="content-header">
     <div class="content-header-info">
         <h2>Reassign Topics</h2>
-        <p>You have topics currently assigned to <strong><%= @subject.formatted_name %></strong>.</p>
-        <p>You must reassign these topics to finish <%= @env["REQUEST_METHOD"]=="DELETE" ? "deleting" : "updating" %> your subject.</p>
     </div>
 </section>
 
+<p class="flash-message">
+    You have topics currently assigned to <strong><%= @subject.formatted_name %></strong>.<br>
+    You must reassign these topics to finish <%= @env["REQUEST_METHOD"]=="DELETE" ? "deleting" : "updating" %> your subject.
+</p>
+
 <section class="content-item">
     <div class="content-item-info">
-        <form class="new-edit-form" method="post" action="/subjects/<%= @subject.slug %>">            
+        <form class="new-edit-form" method="post" action="/subjects/<%= @subject.slug %>">
             <input id="hidden" type="hidden" name="_method" value="<%= @env["REQUEST_METHOD"] %>">
 
             <% @orphans.sort_by { |orph| orph.name }.each do |o| %>
-                <section>            
-                    <h3><%= o.formatted_name %></h3>
-                    
+                <section>
+                    <h3><%= o.formatted_name %></h3>                    
                     <h4>Select Subject to Move Topic To</h4>
                     <% @subjects.order("name ASC").each do |s| %>
                         <% if s != @subject %>

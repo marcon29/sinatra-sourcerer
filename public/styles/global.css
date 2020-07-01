@@ -16,11 +16,15 @@ body {
   
 /* primary section layout styling ******************************************** */
 header {
-  background-color: lightskyblue;    
+  background-color: lightskyblue;
   position: fixed;
   top: 0px;
   width: 100%;
   height: 180px;
+}
+
+header h1 {
+  margin-bottom: 5px;
 }
 
 nav ul li {
@@ -61,12 +65,12 @@ h2, h3 {
   padding: 20px 0;
 }
 
-.flash-message {  
+.flash-message {
   background-color: lightblue;
   width: 50%;
   border-radius: 5% 5% 75% 75%;
   margin: 10px auto;
-  padding: 10px 0;
+  padding: 5px 10px 20px;
   text-align: center;
   color: red;
   font-size: 1.2em;
@@ -83,7 +87,7 @@ h2, h3 {
 .content-header-info, .content-item-info {
   width: 90%;
   margin: 0 auto;
-}    
+}
 
 .display-horiz {
   display: inline;
@@ -102,7 +106,7 @@ h2, h3 {
   margin-top: 0;
 }
 
-/* table styling ******************************************** */    
+/* table styling ******************************************** */
 table {
   border-spacing: 50px 5px;
 }
@@ -154,7 +158,6 @@ a {
 }
 
 a:link {
-  /* color: rgb(47, 63, 99); */
   color: rgb(83, 108, 165);
 }
 

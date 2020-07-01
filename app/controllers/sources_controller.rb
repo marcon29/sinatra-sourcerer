@@ -20,13 +20,13 @@ class SourcesController < AppController
                 subject = Subject.new(params[:subject])
                 subject.topics << topic
                 if subject.invalid?
-                    source.valid?                    
+                    source.valid?
                     flash[:message] = (
                         error_messages(source) <<
                         error_messages(topic).drop(1) <<
                         error_messages(subject).drop(1)
                         ).join("<br>")
-                    redirect "/sources/new" 
+                    redirect "/sources/new"
                 end
             end
 
@@ -52,7 +52,7 @@ class SourcesController < AppController
         end
     end
   
-    # read routes #################################  
+    # read routes #################################
     get '/sources/:slug' do
         @source = Source.find_by_slug(params[:slug])
         erb :"/sources/show"
@@ -68,12 +68,12 @@ class SourcesController < AppController
   
     patch '/sources/:slug' do
         source = Source.find_by_slug(params[:slug])
-        source.update(params[:source])        
+        source.update(params[:source])
         
         if source.invalid?
             flash[:message] = error_messages(source).join("<br>")
             redirect "/sources/#{params[:slug]}/edit"
-        end        
+        end
 
         if new_topic?
             topic = Topic.new(params[:topic])
@@ -114,13 +114,12 @@ class SourcesController < AppController
             redirect "/sources/#{params[:slug]}/edit"
         end
     end
-  
-  
+    
     # delete routes ###############################
     delete '/sources/:slug' do
         source = Source.find_by_slug(params[:slug])
         source.destroy
         flash[:message] = "#{source.formatted_name} removed"
-        redirect "/subjects"        
+        redirect "/subjects"
     end
   end

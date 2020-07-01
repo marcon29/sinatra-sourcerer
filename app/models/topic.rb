@@ -11,7 +11,7 @@ class Topic < ActiveRecord::Base
         self.all.find do |obj|
             obj.slug == url_slug
         end
-    end    
+    end
 
     def slug
         self.name.gsub(" ", "-").scan(/[[^\s\W]-]/).join.downcase
@@ -20,5 +20,4 @@ class Topic < ActiveRecord::Base
     def formatted_name
         self.name.split.collect { |word| word.capitalize }.join(" ")
     end
-    
 end

@@ -1,7 +1,7 @@
 class AppController < Sinatra::Base
     configure do
         set :views, "app/views/"
-        set :public_folder, "public"        
+        set :public_folder, "public"
         enable :sessions
         set :session_secret, "snufflebuff"
     end
@@ -10,7 +10,6 @@ class AppController < Sinatra::Base
     get '/' do
         erb :index
     end
-
 
     # helpers ###############################
     def new_subject?
@@ -33,7 +32,7 @@ class AppController < Sinatra::Base
                 Topic.all.select { |obj| !obj.subject_id }
             end
         end
-    end    
+    end
 
     def formatted_date(date)
         date.strftime("%m/%d/%Y") if date
@@ -46,7 +45,8 @@ class AppController < Sinatra::Base
         end
         msgs.unshift("Operation Failed")
     end
-
+    
+    
 
     
             

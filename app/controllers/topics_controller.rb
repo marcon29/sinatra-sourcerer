@@ -17,12 +17,12 @@ class TopicsController < AppController
             subject.topics << topic
 
             if subject.invalid?
-                flash[:message] = (                        
+                flash[:message] = (
                     error_messages(topic) <<
                     error_messages(subject).drop(1)
                     ).join("<br>")
-                redirect "/topics/new" 
-            end 
+                redirect "/topics/new"
+            end
         end
 
         if topic.save
@@ -35,9 +35,9 @@ class TopicsController < AppController
         end
     end
   
-    # read routes #################################    
+    # read routes #################################
     # also serves as sources index
-    get '/topics/:slug' do        
+    get '/topics/:slug' do
         @topic = Topic.find_by_slug(params[:slug])
         erb :"/topics/show"
     end
@@ -45,7 +45,7 @@ class TopicsController < AppController
     # update routes ###############################
     get '/topics/:slug/edit' do
         @topic = Topic.find_by_slug(params[:slug])
-        @subjects = Subject.all        
+        @subjects = Subject.all
         erb :"/topics/edit"
     end
   
@@ -57,7 +57,7 @@ class TopicsController < AppController
             subject.topics << topic
             
             if subject.invalid?
-                flash[:message] = (                        
+                flash[:message] = (
                     error_messages(topic) <<
                     error_messages(subject).drop(1)
                     ).join("<br>")

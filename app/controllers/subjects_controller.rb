@@ -4,7 +4,7 @@ class SubjectsController < AppController
     use Rack::Flash
 
     # create routes ###############################
-    get '/subjects/new' do        
+    get '/subjects/new' do
         erb :"/subjects/new"
     end
 
@@ -19,7 +19,7 @@ class SubjectsController < AppController
                 flash[:message] = error_messages(topic).join("<br>")
                 redirect "/subjects/new"
             end
-        end        
+        end
         
         if subject.save
             flash[:message] = "#{subject.formatted_name} created"
@@ -28,7 +28,7 @@ class SubjectsController < AppController
                 flash[:message] << " with #{topic.formatted_name}"
             end
             redirect "/subjects"
-        else            
+        else
             flash[:message] = error_messages(subject).join("<br>")
             redirect "/subjects/new"
         end
@@ -39,18 +39,18 @@ class SubjectsController < AppController
     get '/subjects' do
         @subjects = Subject.all
         erb :"/subjects/index"
-    end    
+    end
     
     # update routes ###############################
     get '/subjects/:slug/edit' do
         @subject = Subject.find_by_slug(params[:slug])
-        @topics = Topic.all        
+        @topics = Topic.all
         erb :"/subjects/edit"
     end
   
     patch '/subjects/:slug' do
         @subject = Subject.find_by_slug(params[:slug])
-        @subjects = Subject.all        
+        @subjects = Subject.all
 
         if params[:reassign]
             params[:reassign].each do |key, value|
@@ -68,7 +68,7 @@ class SubjectsController < AppController
                     flash[:message] = error_messages(topic).join("<br>")
                     redirect "/subjects/#{params[:slug]}/edit"
                 end
-            end        
+            end
             
             if @subject.update(params[:subject])
                 flash[:message] = "#{@subject.formatted_name} updated"
@@ -85,10 +85,10 @@ class SubjectsController < AppController
         @orphans = find_orphans
         if @orphans.empty?
             redirect "/subjects"
-        else                
+        else
             erb :"/subjects/reassign"
         end
-    end    
+    end
         
     # delete routes ###############################
     delete '/subjects/:slug' do
