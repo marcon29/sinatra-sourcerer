@@ -1,0 +1,19 @@
+<section class="content-header">
+    <div class="content-header-info">
+        <h2>Edit <%= @user.formatted_name %></h2>
+    </div>
+</section>
+
+<% if flash.has?(:message) %>
+    <p class="flash-message"><%= flash[:message] %></p>
+<% end %>
+
+<section class="content-item">
+    <div class="content-item-info">
+        <form class="new-edit-form" method="post" action="/topics/<%= @topic.slug %>">
+            <input id="hidden" type="hidden" name="_method" value="patch">
+
+            <p><input type="submit" value="Update"></p>
+        </form>
+    </div>
+</section>

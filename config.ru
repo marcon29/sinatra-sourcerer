@@ -10,5 +10,5 @@ use Rack::MethodOverride
 use SourcesController
 use SubjectsController
 use TopicsController
-# use UsersController
+use UsersController
 run AppController 

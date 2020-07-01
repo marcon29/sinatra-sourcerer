@@ -1,0 +1,19 @@
+<section class="content-header">
+    <div class="content-header-info">
+        <h2>Signup</h2>
+    </div>
+</section>
+
+<% if flash.has?(:message) %>
+    <p class="flash-message"><%= flash[:message] %></p>
+<% end %>
+
+<section class="content-item">
+    <div class="content-item-info">
+        <form class="new-edit-form" method="post" action="/topics">
+
+            <p><input type="submit" value="Add Topic"></p>
+        </form>
+    </div>
+</section>
+
