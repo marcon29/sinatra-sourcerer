@@ -36,26 +36,41 @@ class SubjectsController < AppController
     end
   
     patch '/subjects/:slug' do
-        subject = Subject.find_by_slug(params[:slug])
+        @subject = Subject.find_by_slug(params[:slug])
+        @subjects = Subject.all        
 
-        if new_topic?
-            topic = Topic.new(params[:topic])
-            topic.subject = subject
-            redirect "/subjects/#{params[:slug]}/edit" if topic.invalid?
-        end        
-        
-        if subject.update(params[:subject])
-            topic.save if topic
-            redirect "/subjects"
+        if params[:reassign]
+            params[:reassign].each do |key, value|
+                if value[:subject_id]
+                    topic = Topic.find(value[:id])
+                    topic.update(subject_id: value[:subject_id])
+                end
+            end
         else
-            redirect "/subjects/#{params[:slug]}/edit"
+            if new_topic?
+                topic = Topic.new(params[:topic])
+                topic.subject = @subject
+                redirect "/subjects/#{params[:slug]}/edit" if topic.invalid?
+            end        
+            
+            if @subject.update(params[:subject])
+                topic.save if topic            
+            else
+                redirect "/subjects/#{params[:slug]}/edit"
+            end
         end
-    end
+
+        @orphans = find_orphans
+        if @orphans.empty?
+            redirect "/subjects"
+        else                
+            erb :"/subjects/reassign"
+        end
+    end    
         
     # delete routes ###############################
     delete '/subjects/:slug' do
         @subject = Subject.find_by_slug(params[:slug])
-        @orphans = find_orphans(@subject)
         @subjects = Subject.all
 
         if params[:reassign]
@@ -65,9 +80,9 @@ class SubjectsController < AppController
                     topic.update(subject_id: value[:subject_id])
                 end
             end
-            @orphans = find_orphans(@subject)
         end
 
+        @orphans = @subject.topics
         if @orphans.empty?
             @subject.destroy
             redirect "/subjects"

@@ -2,14 +2,14 @@
     <div class="content-header-info">
         <h2>Reassign Topics</h2>
         <p>You have topics currently assigned to <strong><%= @subject.formatted_name %></strong>.</p>
-        <p>You must reassign these topics to finish <%= @env["REQUEST_METHOD"]=="DELETE" ? "deleting" : "updating" %> your subject.</p>
+        <p>You must reassign these topics to finish deleting your subject.</p>
     </div>
 </section>
 
 <section class="content-item">
     <div class="content-item-info">
-        <form class="new-edit-form" method="post" action="/subjects/<%= @subject.slug %>">            
-            <input id="hidden" type="hidden" name="_method" value="<%= @env["REQUEST_METHOD"] %>">
+        <form class="new-edit-form" method="post" action="/subjects/<%= @subject.slug %>">
+            <input id="hidden" type="hidden" name="_method" value="delete">
 
             <% @orphans.each do |o| %>
                 <section>            

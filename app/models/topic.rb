@@ -1,5 +1,5 @@
 class Topic < ActiveRecord::Base
-    has_many :source_topics
+    has_many :source_topics, :dependent => :nullify
     has_many :sources, through: :source_topics
     belongs_to :subject
 
