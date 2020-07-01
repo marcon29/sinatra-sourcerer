@@ -63,7 +63,11 @@ class SubjectsController < AppController
             if new_topic?
                 topic = Topic.new(params[:topic])
                 topic.subject = @subject
-                redirect "/subjects/#{params[:slug]}/edit" if topic.invalid?
+
+                if topic.invalid?
+                    flash[:message] = error_messages(topic).join("<br>")
+                    redirect "/subjects/#{params[:slug]}/edit"
+                end
             end        
             
             if @subject.update(params[:subject])
@@ -73,6 +77,7 @@ class SubjectsController < AppController
                     flash[:message] << " and #{topic.formatted_name} created"
                 end
             else
+                flash[:message] = error_messages(@subject).join("<br>")
                 redirect "/subjects/#{params[:slug]}/edit"
             end
         end

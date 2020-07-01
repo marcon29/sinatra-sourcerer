@@ -17,9 +17,12 @@ class TopicsController < AppController
             subject.topics << topic
 
             if subject.invalid?
-                flash[:message] = error_messages(topic).join("<br>")
+                flash[:message] = (                        
+                    error_messages(topic) <<
+                    error_messages(subject).drop(1)
+                    ).join("<br>")
                 redirect "/topics/new" 
-            end
+            end 
         end
 
         if topic.save
@@ -52,7 +55,14 @@ class TopicsController < AppController
         if new_subject?
             subject = Subject.new(params[:subject])
             subject.topics << topic
-            redirect "/topics/#{params[:slug]}/edit" if subject.invalid?
+            
+            if subject.invalid?
+                flash[:message] = (                        
+                    error_messages(topic) <<
+                    error_messages(subject).drop(1)
+                    ).join("<br>")
+                redirect "/topics/#{params[:slug]}/edit"
+            end
         end
 
         if topic.update(params[:topic])
@@ -60,6 +70,7 @@ class TopicsController < AppController
             flash[:message] << " within newly created #{subject.formatted_name}" if subject
             redirect "/topics/#{topic.slug}"
         else
+            flash[:message] = error_messages(topic).join("<br>")
             redirect "/topics/#{params[:slug]}/edit"
         end
     end
