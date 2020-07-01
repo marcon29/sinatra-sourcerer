@@ -61,6 +61,17 @@ h2, h3 {
   padding: 20px 0;
 }
 
+.flash-message {  
+  background-color: lightblue;
+  width: 50%;
+  border-radius: 5% 5% 75% 75%;
+  margin: 10px auto;
+  padding: 10px 0;
+  text-align: center;
+  color: red;
+  font-size: 1.2em;
+}
+
 .content-item {
   padding: 20px 0;
 }

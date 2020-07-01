@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class SourcesController < AppController
+    use Rack::Flash
+
     # create routes ###############################
     get '/sources/new' do
         @subjects = Subject.all
@@ -8,8 +12,6 @@ class SourcesController < AppController
 
     post '/sources' do
         source = Source.new(params[:source])
-
-        binding.pry
         
         if new_topic?
             topic = Topic.new(params[:topic])
@@ -25,6 +27,9 @@ class SourcesController < AppController
         end
 
         if source.save
+            flash[:message] = "#{source.formatted_name} created"
+            flash[:message] << " within #{topic.formatted_name}" if topic
+            flash[:message] << " within #{subject.formatted_name}" if subject
             redirect "/sources/#{source.slug}"
         else
             redirect "/sources/new"
@@ -64,6 +69,9 @@ class SourcesController < AppController
         end
 
         if source.save
+            flash[:message] = "#{source.formatted_name} updated"
+            flash[:message] << " within newly created #{topic.formatted_name}" if topic
+            flash[:message] << " within newly created #{subject.formatted_name}" if subject
             redirect "/sources/#{source.slug}"
         else
             redirect "/sources/#{params[:slug]}/edit"
@@ -75,6 +83,7 @@ class SourcesController < AppController
     delete '/sources/:slug' do
         source = Source.find_by_slug(params[:slug])
         source.destroy
+        flash[:message] = "#{source.formatted_name} removed"
         redirect "/subjects"        
     end
   end

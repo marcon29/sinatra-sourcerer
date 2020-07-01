@@ -3,7 +3,7 @@ class AppController < Sinatra::Base
         set :views, "app/views/"
         set :public_folder, "public"        
         enable :sessions
-        # set :session_secret, "session_key"
+        set :session_secret, "snufflebuff"
     end
 
     # app home page

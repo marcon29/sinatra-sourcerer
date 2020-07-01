@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class TopicsController < AppController
+    use Rack::Flash
+
     # create routes ###############################
     get '/topics/new' do
         @subjects = Subject.all
@@ -15,6 +19,8 @@ class TopicsController < AppController
         end
 
         if topic.save
+            flash[:message] = "#{topic.formatted_name} created"
+            flash[:message] << " within #{subject.formatted_name}" if subject
             redirect "/topics/#{topic.slug}"
         else
             redirect "/topics/new"
@@ -45,6 +51,8 @@ class TopicsController < AppController
         end
 
         if topic.update(params[:topic])
+            flash[:message] = "#{topic.formatted_name} updated"
+            flash[:message] << " within newly created #{subject.formatted_name}" if subject
             redirect "/topics/#{topic.slug}"
         else
             redirect "/topics/#{params[:slug]}/edit"
@@ -68,6 +76,7 @@ class TopicsController < AppController
         @orphans = find_orphans
         if @orphans.empty?
             @topic.destroy
+            flash[:message] = "#{@topic.formatted_name} removed"
             redirect "/subjects"
         else
             erb :"/topics/reassign"

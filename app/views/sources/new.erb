@@ -4,6 +4,10 @@
     </div>
 </section>
 
+<% if flash.has?(:message) %>
+    <p class="flash-message"><%= flash[:message] %></p>
+<% end %>
+
 <section class="content-item">
     <div class="content-item-info">
         <form class="new-edit-form" method="post" action="/sources">
