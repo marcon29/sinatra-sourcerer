@@ -1,5 +1,5 @@
 class Source < ActiveRecord::Base
-    has_many :source_topics, :dependent => :nullify
+    has_many :source_topics, :dependent => :destroy
     has_many :topics, through: :source_topics
     has_many :subjects, through: :topics
 

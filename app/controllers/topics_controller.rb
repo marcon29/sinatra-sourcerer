@@ -52,22 +52,20 @@ class TopicsController < AppController
     end
         
     # delete routes ###############################
-    delete '/topics/:slug' do        
+    delete '/topics/:slug' do
         @topic = Topic.find_by_slug(params[:slug])
-        @orphans = find_orphans(@topic)
         @topics = Topic.all
 
         if params[:reassign]
-            params[:reassign].each do |key, value|                
+            params[:reassign].each do |key, value|
                 if value[:topic_ids]
                     source = Source.find(value[:id])
                     source.update(topic_ids: value[:topic_ids])
                 end
             end
-            
-            @orphans = find_orphans(@topic)
         end
 
+        @orphans = find_orphans
         if @orphans.empty?
             @topic.destroy
             redirect "/subjects"

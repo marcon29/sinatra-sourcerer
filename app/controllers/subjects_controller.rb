@@ -82,7 +82,7 @@ class SubjectsController < AppController
             end
         end
 
-        @orphans = @subject.topics
+        @orphans = find_orphans
         if @orphans.empty?
             @subject.destroy
             redirect "/subjects"

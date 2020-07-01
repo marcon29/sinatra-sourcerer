@@ -23,15 +23,16 @@ class AppController < Sinatra::Base
 
     # def find_orphans(item)
     def find_orphans
-        req_type = @env["REQUEST_PATH"].split("/")[1]
-        if req_type == "topics"
-            # item.sources.select { |obj| obj.topic_ids.count <= 1 }
-            # item.sources.select { |obj| obj.topic_ids.count == 0 }
-            Source.all.select { |obj| obj.topic_ids.count == 0 }
-        elsif req_type == "subjects"
-            # item.topics
-            # item.topics.select { |obj| !obj.subject_id }
-            Topic.all.select { |obj| !obj.subject_id }
+        req_path = @env["REQUEST_PATH"].split("/")[1]
+        req_meth = @env["REQUEST_METHOD"]
+        if req_path == "topics"
+            @topic.sources.select { |obj| obj.topic_ids.count <= 1 }
+        elsif req_path == "subjects"
+            if req_meth == "DELETE"
+                @subject.topics
+            else
+                Topic.all.select { |obj| !obj.subject_id }
+            end
         end
     end
 
