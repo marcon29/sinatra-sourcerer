@@ -22,12 +22,17 @@
                 <p><label for="date-published">Date Published: </label>
                     <input id="date-published" type="date" name="source[pub_date]"</p>
                 <p><label for="media-type">Media Type: </label>
-                    <input id="media-type" type="text" name="source[media_type]"</p>
+                    <select id="media-type" name="source[media_type]">
+                        <option value="">--Please choose an option--</option>
+                        <% Source.media_options.each do |item| %>                            
+                            <option value="<%= item %>"><%= item %></option>
+                        <% end %>
+                    </select></p>
                 <p><label for="notes">Notes: </label>
                     <textarea id="notes" type="text" name="source[notes]"></textarea></p>
                 <input id="hidden" type="hidden" name="source[public]" value="false">
                 <p>Public: <input id="public" type="checkbox" name="source[public]" value="true"></p>
-            </section>
+            </section>         
             
             <section>
                 <h3>Associate Topics (required)</h3>

@@ -8,6 +8,8 @@ class SourcesController < AppController
 
     post '/sources' do
         source = Source.new(params[:source])
+
+        binding.pry
         
         if new_topic?
             topic = Topic.new(params[:topic])

@@ -8,6 +8,19 @@ class Source < ActiveRecord::Base
     # validates :url, presence: true, uniqueness: { case_sensitive: false }
     validates :topics, presence: true    
 
+    def self.media_options
+        [
+            "Audio",
+            "Video",
+            "Image",
+            "News Article",
+            "Blog Article",
+            "Study",
+            "PDF",
+            "Other"
+        ]
+    end
+
     def self.find_by_slug(url_slug)
         self.all.find do |obj|
             obj.slug == url_slug
