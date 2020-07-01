@@ -22,7 +22,7 @@
                 <h3>Associated Topics</h3>
                 <h4>Select from Existing Topics</h4>
                 <input id="hidden" type="hidden" name="subject[topic_ids][]">
-                <% @topics.each do |t| %>
+                <% @topics.order("name ASC").each do |t| %>
                     <p><input type="checkbox" name="subject[topic_ids][]" value="<%= t.id %>" <%='checked' if @subject.topics.include?(t) %>> <%= t.formatted_name %></p>
                 <% end %>
                 

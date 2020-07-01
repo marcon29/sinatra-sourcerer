@@ -14,7 +14,7 @@
     </div>
 </section>
 
-<% @topic.sources.each do |s| %>
+<% @topic.sources.order("name ASC").each do |s| %>
     <section class="content-item">
         <div class="content-item-info">
             <h3><a href="http://<%= s.link %>" target="_blank"><%= s.formatted_name %></a></h3>

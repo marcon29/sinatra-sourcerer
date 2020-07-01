@@ -20,7 +20,7 @@
             <section>
                 <h3>Associated Subjects (required)</h3>
                 <h4>Select from Existing Subjects</h4>
-                <% @subjects.each do |s| %>
+                <% @subjects.order("name ASC").each do |s| %>
                     <p><input id="<%= s.name %>" type="radio" name="topic[subject_id]" value="<%= s.id %>" <%='checked' if @topic.subject == s %>>
                         <label for="<%= s.name %>"><%= s.formatted_name %></label></p>
                 <% end %>

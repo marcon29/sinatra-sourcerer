@@ -2,8 +2,8 @@
     <div class="content-header-info">
         <h2><%= @source.formatted_name %></h2>
         <h3>Associated Topics: 
-            <% @source.topics.each do |t| %>
-                <a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a><%= ", " if t.id != @source.topics.last.id %>
+            <% @source.topics.order("name ASC").each do |t| %>
+                <a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a><%= ", " if t != @source.topics.order("name ASC").last %>
             <% end %>
         </h3>
 

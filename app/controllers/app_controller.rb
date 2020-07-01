@@ -21,7 +21,6 @@ class AppController < Sinatra::Base
         !params[:topic][:name].empty?
     end
 
-    # def find_orphans(item)
     def find_orphans
         req_path = @env["REQUEST_PATH"].split("/")[1]
         req_meth = @env["REQUEST_METHOD"]

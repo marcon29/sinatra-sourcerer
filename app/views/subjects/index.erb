@@ -4,7 +4,7 @@
     </div>
 </section>
 
-<% @subjects.each do |s| %>
+<% @subjects.order("name ASC").each do |s| %>
     <section class="content-item">
         <div class="content-item-info">
             <div class="item-info-head">
@@ -31,7 +31,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <% s.topics.each do |t| %>
+                        <% s.topics.order("name ASC").each do |t| %>
                             <tr>
                                 <td><a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a></td>
                                 <td><%= t.sources.count %> Source<%= "s" if t.sources.count!=1 %></td>

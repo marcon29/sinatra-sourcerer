@@ -11,12 +11,12 @@
         <form class="new-edit-form" method="post" action="/subjects/<%= @subject.slug %>">            
             <input id="hidden" type="hidden" name="_method" value="<%= @env["REQUEST_METHOD"] %>">
 
-            <% @orphans.each do |o| %>
+            <% @orphans.order("name ASC").each do |o| %>
                 <section>            
                     <h3><%= o.formatted_name %></h3>
                     
                     <h4>Select Subject to Move Topic To</h4>
-                    <% @subjects.each do |s| %>
+                    <% @subjects.order("name ASC").each do |s| %>
                         <% if s != @subject %>
                             <input id="hidden" type="hidden" name="reassign[<%= o.slug %>][id]" value="<%= o.id %>">
                             <p><input id="<%= s.name %>" type="radio" name="reassign[<%= o.slug %>][subject_id]" value="<%= s.id %>">
