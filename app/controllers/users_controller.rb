@@ -1,6 +1,6 @@
 require 'rack-flash'
 
-class SourcesController < AppController
+class UsersController < AppController
     use Rack::Flash
 
     # signup routes ################################################

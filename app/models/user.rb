@@ -1,19 +1,16 @@
 class User < ActiveRecord::Base
     
     # ####### join table with sources??? #######
-    has_many :sources
+    has_many :sources, :dependent => :nullify
     has_many :topics, through: :sources
-    has_many :subjects, through: :sources
-    # has_many :subjects, through: :topics
-    
+    has_many :subjects, through: :sources    
     has_secure_password
-
-    # add format validation: no spaces, no special characters
-    validates :username, presence: true, uniqueness: { case_sensitive: false }
     
-    # add format validation: text/@/text/./text, no spaces
-    validates :email, presence: true, uniqueness: { case_sensitive: false }
+    validates :username, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A\w+\z/, message: "can only use letters and numbers without spaces" }
+    validates :email, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A\S+@\w+\.[a-zA-Z]{2,3}\z/, message: "doesn't look valid, please use another" }
 
+
+    
     def full_name
         "#{self.first_name.capitalize} #{self.last_name.capitalize}"
     end

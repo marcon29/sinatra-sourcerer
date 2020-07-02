@@ -2,11 +2,13 @@ class Source < ActiveRecord::Base
     has_many :source_topics, :dependent => :destroy
     has_many :topics, through: :source_topics
     has_many :subjects, through: :topics
-
+    belongs_to :user
+    
     
     validates :topics, presence: { message: "must select or create a topic" }
+    validates :user, presence: true
 
-    # may need to specify uniqueness only for user, not as a whole???
+    # specify uniqueness only for user, not as a whole???
     validates :name, presence: true, uniqueness: { case_sensitive: false }
     
     # add validation condition: ignore http/https and www.
