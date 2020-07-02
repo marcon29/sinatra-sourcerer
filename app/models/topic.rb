@@ -4,15 +4,13 @@ class Topic < ActiveRecord::Base
     belongs_to :subject
 
     validates :subject, presence: { message: "must select or create a subject" }
-    
+
     # specify uniqueness only for user, not as a whole???
     validates :name, presence: true, uniqueness: { case_sensitive: false }
     
 
     def self.find_by_slug(url_slug)
-        self.all.find do |obj|
-            obj.slug == url_slug
-        end
+        self.all.find { |obj| obj.slug == url_slug }
     end
 
     def slug

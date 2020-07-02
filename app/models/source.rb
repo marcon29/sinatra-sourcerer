@@ -30,9 +30,7 @@ class Source < ActiveRecord::Base
     end
 
     def self.find_by_slug(url_slug)
-        self.all.find do |obj|
-            obj.slug == url_slug
-        end
+        self.all.find { |obj| obj.slug == url_slug }
     end
 
     def slug
