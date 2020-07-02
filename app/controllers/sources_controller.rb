@@ -12,6 +12,8 @@ class SourcesController < AppController
 
     post '/sources' do
         source = Source.new(params[:source])
+
+        # need to auto assign new source to user
         
         if new_topic?
             topic = Topic.new(params[:topic])

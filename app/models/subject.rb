@@ -1,9 +1,10 @@
 class Subject < ActiveRecord::Base
     has_many :topics, :dependent => :nullify
     has_many :sources, through: :topics
+    belongs_to :user
     
-    # specify uniqueness only for user, not as a whole???
-    validates :name, presence: true, uniqueness: { case_sensitive: false }
+    validates :user, presence: true
+    validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :user }
 
     def self.find_by_slug(url_slug)
         self.all.find { |obj| obj.slug == url_slug }

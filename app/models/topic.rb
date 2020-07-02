@@ -2,11 +2,11 @@ class Topic < ActiveRecord::Base
     has_many :source_topics, :dependent => :destroy
     has_many :sources, through: :source_topics
     belongs_to :subject
+    belongs_to :user
 
     validates :subject, presence: { message: "must select or create a subject" }
-
-    # specify uniqueness only for user, not as a whole???
-    validates :name, presence: true, uniqueness: { case_sensitive: false }
+    validates :user, presence: true
+    validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :user }
     
 
     def self.find_by_slug(url_slug)

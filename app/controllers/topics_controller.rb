@@ -12,6 +12,8 @@ class TopicsController < AppController
     post '/topics' do
         topic = Topic.new(params[:topic])
 
+        # need to auto assign new subject to user
+
         if new_subject?
             subject = Subject.new(params[:subject])
             subject.topics << topic

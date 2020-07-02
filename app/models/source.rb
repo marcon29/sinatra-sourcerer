@@ -3,30 +3,24 @@ class Source < ActiveRecord::Base
     has_many :topics, through: :source_topics
     has_many :subjects, through: :topics
     belongs_to :user
-    
-    
+        
     validates :topics, presence: { message: "must select or create a topic" }
     validates :user, presence: true
-
-    # specify uniqueness only for user, not as a whole???
-    validates :name, presence: true, uniqueness: { case_sensitive: false }
-    
+    validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :user }    
+        
     # add validation condition: ignore http/https and www.
-    # validates :url, presence: true, uniqueness: { case_sensitive: false }
-    
-    
+    # validates :url, presence: true, uniqueness: { case_sensitive: false, scope: :user }
+        
 
     def self.media_options
-        [
-            "Audio",
-            "Video",
-            "Image",
-            "News Article",
-            "Blog Article",
-            "Study",
-            "PDF",
-            "Other"
-        ]
+        ["Audio", 
+        "Video", 
+        "Image", 
+        "News Article", 
+        "Blog Article", 
+        "Study", 
+        "PDF", 
+        "Other"]
     end
 
     def self.find_by_slug(url_slug)

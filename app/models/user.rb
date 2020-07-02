@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
     has_many :sources, :dependent => :nullify
-    has_many :topics, through: :sources
-    has_many :subjects, through: :sources
+    has_many :topics, :dependent => :nullify # or destroy??? - decide when setting up shared sources
+    has_many :subjects, :dependent => :nullify # or destroy??? - decide when setting up shared sources
     has_secure_password
     
     validates :username, presence: true, uniqueness: { case_sensitive: false }, format: { with: /\A\w+\z/, message: "can only use letters and numbers without spaces" }
