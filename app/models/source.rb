@@ -3,10 +3,16 @@ class Source < ActiveRecord::Base
     has_many :topics, through: :source_topics
     has_many :subjects, through: :topics
 
+    
+    validates :topics, presence: { message: "must select or create a topic" }
+
     # may need to specify uniqueness only for user, not as a whole???
     validates :name, presence: true, uniqueness: { case_sensitive: false }
+    
+    # add validation condition: ignore http/https and www.
     # validates :url, presence: true, uniqueness: { case_sensitive: false }
-    validates :topics, presence: { message: "must select or create a topic" }
+    
+    
 
     def self.media_options
         [

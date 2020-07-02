@@ -11,7 +11,7 @@ class AppController < Sinatra::Base
         erb :index
     end
 
-    # helpers ###############################
+    # app helpers ###############################
     def new_subject?
         !params[:subject][:name].empty?
     end
@@ -45,8 +45,44 @@ class AppController < Sinatra::Base
         end
         msgs.unshift("Operation Failed")
     end
+
+    # user helpers ###############################
+    # these need to be reviewed still    
+    def signup_login(username, email, password)
+        if username == "" || email == "" || password == ""
+          redirect '/signup'
+        else
+          user = User.find_by(username: username)
+        end
+      
+        if user && user.authenticate(password)
+          session[:user_id] = user.id
+        else
+          redirect '/signup'
+        end
+      end
+      
+      def login(username, password)
+        if username == "" || password == ""
+          redirect '/login'
+        else
+          user = User.find_by(username: username)
+        end
+      
+        if user && user.authenticate(password)
+          session[:user_id] = user.id
+        else
+          redirect '/signup'
+        end
+      end
     
-    
+      def current_user
+        User.find(session[:user_id])
+      end
+      
+      def logged_in?
+        !!session[:user_id]
+      end
 
     
             
