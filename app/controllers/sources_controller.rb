@@ -86,26 +86,29 @@ class SourcesController < AppController
             @topics = @user.topics
             erb :"/sources/edit"
         else
-            flash[:message] = "CHECK That is not one of your sources"
+            flash[:message] = "That is not one of your sources"
             redirect back
         end  
         
     end
   
     patch '/sources/:slug' do
-        source = Source.find_by_slug(params[:slug])
+        @user = current_user
+        source = user_item("source")
         source.update(params[:source])
         
         if source.invalid?
             flash[:message] = error_messages(source).join("<br>")
-            redirect "/sources/#{params[:slug]}/edit"
+            redirect back
         end
 
         if new_topic?
             topic = Topic.new(params[:topic])
+            topic.user = @user
             
             if new_subject?
                 subject = Subject.new(params[:subject])
+                subject.user = @user
                 subject.topics << topic
 
                 if subject.invalid?
@@ -115,18 +118,19 @@ class SourcesController < AppController
                         error_messages(topic).drop(1) <<
                         error_messages(subject).drop(1)
                         ).join("<br>")
-                    redirect "/sources/#{params[:slug]}/edit"
+                    redirect back
                 end
             end
 
             source.topics << topic if topic.valid?
+
             if topic.invalid?
                 source.valid?
                 flash[:message] = (
                     error_messages(source) <<
                     error_messages(topic).drop(1)
                     ).join("<br>")
-                redirect "/sources/#{params[:slug]}/edit"
+                redirect back
             end
         end
 
@@ -137,13 +141,14 @@ class SourcesController < AppController
             redirect "/sources/#{source.slug}"
         else
             flash[:message] = error_messages(source).join("<br>")
-            redirect "/sources/#{params[:slug]}/edit"
+            redirect back
         end
     end
     
     # delete routes ###############################
     delete '/sources/:slug' do
-        source = Source.find_by_slug(params[:slug])
+        @user = current_user
+        source = user_item("source")
         source.destroy
         flash[:message] = "#{source.formatted_name} removed"
         redirect "/subjects"

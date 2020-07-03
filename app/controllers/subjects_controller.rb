@@ -63,8 +63,9 @@ class SubjectsController < AppController
     end
   
     patch '/subjects/:slug' do
-        @subject = Subject.find_by_slug(params[:slug])
-        @subjects = Subject.all
+        @user = current_user
+        @subject = user_item("subject")
+        @subjects = @user.subjects
 
         if params[:reassign]
             params[:reassign].each do |key, value|
@@ -76,11 +77,12 @@ class SubjectsController < AppController
         else
             if new_topic?
                 topic = Topic.new(params[:topic])
+                topic.user = @user
                 topic.subject = @subject
 
                 if topic.invalid?
                     flash[:message] = error_messages(topic).join("<br>")
-                    redirect "/subjects/#{params[:slug]}/edit"
+                    redirect back
                 end
             end
             
@@ -92,7 +94,7 @@ class SubjectsController < AppController
                 end
             else
                 flash[:message] = error_messages(@subject).join("<br>")
-                redirect "/subjects/#{params[:slug]}/edit"
+                redirect back
             end
         end
 
@@ -106,8 +108,12 @@ class SubjectsController < AppController
         
     # delete routes ###############################
     delete '/subjects/:slug' do
-        @subject = Subject.find_by_slug(params[:slug])
-        @subjects = Subject.all
+        # @subject = Subject.find_by_slug(params[:slug])
+        # @subjects = Subject.all
+
+        @user = current_user
+        @subject = user_item("subject")
+        @subjects = @user.subjects
 
         if params[:reassign]
             params[:reassign].each do |key, value|

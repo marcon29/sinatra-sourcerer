@@ -71,10 +71,12 @@ class TopicsController < AppController
     end
   
     patch '/topics/:slug' do
-        topic = Topic.find_by_slug(params[:slug])
+        @user = current_user
+        topic = user_item("topic")
 
         if new_subject?
             subject = Subject.new(params[:subject])
+            subject.user = @user
             subject.topics << topic
             
             if subject.invalid?
@@ -82,7 +84,7 @@ class TopicsController < AppController
                     error_messages(topic) <<
                     error_messages(subject).drop(1)
                     ).join("<br>")
-                redirect "/topics/#{params[:slug]}/edit"
+                redirect back
             end
         end
 
@@ -92,14 +94,18 @@ class TopicsController < AppController
             redirect "/topics/#{topic.slug}"
         else
             flash[:message] = error_messages(topic).join("<br>")
-            redirect "/topics/#{params[:slug]}/edit"
+            redirect back
         end
     end
         
     # delete routes ###############################
     delete '/topics/:slug' do
-        @topic = Topic.find_by_slug(params[:slug])
-        @topics = Topic.all
+        # @topic = Topic.find_by_slug(params[:slug])
+        # @topics = Topic.all
+
+        @user = current_user
+        @topic = user_item("topic")
+        @topics = @user.topics
 
         if params[:reassign]
             params[:reassign].each do |key, value|
