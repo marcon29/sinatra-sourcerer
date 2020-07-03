@@ -47,6 +47,17 @@ class AppController < Sinatra::Base
  		msgs.unshift("Operation Failed")
 	end
 
+	def user_item(item)
+		case item
+			when "subject"
+				@user.subjects.find { |sub| sub.slug == params[:slug] }
+			when "topic"
+				@user.topics.find { |sub| sub.slug == params[:slug] }
+			when "source"
+				@user.sources.find { |sub| sub.slug == params[:slug] }
+		end		
+	end
+
 	# user helpers ###############################
 
 	# def login(username, email, password)

@@ -10,17 +10,18 @@ class SubjectsController < AppController
     end
 
     post '/subjects' do
+        user = current_user
         subject = Subject.new(params[:subject])
-
-        # need to auto assign new subject to user
+        subject.user = user
 
         if new_topic?
             topic = Topic.new(params[:topic])
             topic.subject = subject
+            topic.user = user
 
             if topic.invalid?
                 flash[:message] = error_messages(topic).join("<br>")
-                redirect "/subjects/new"
+                redirect back
             end
         end
         
@@ -33,7 +34,7 @@ class SubjectsController < AppController
             redirect "/subjects"
         else
             flash[:message] = error_messages(subject).join("<br>")
-            redirect "/subjects/new"
+            redirect back
         end
     end
   
@@ -41,16 +42,24 @@ class SubjectsController < AppController
     # also serves as topics index
     get '/subjects' do
         redirect '/' if !logged_in?
-        @subjects = Subject.all
+        user = current_user
+        @subjects = user.subjects
         erb :"/subjects/index"
     end
     
     # update routes ###############################
     get '/subjects/:slug/edit' do
         redirect '/' if !logged_in?
-        @subject = Subject.find_by_slug(params[:slug])
-        @topics = Topic.all
-        erb :"/subjects/edit"
+        @user = current_user
+        @subject = user_item("subject")
+
+        if @subject
+            @topics = @user.topics
+            erb :"/subjects/edit"
+        else
+            flash[:message] = "That is not one of your subjects"
+            redirect back
+        end
     end
   
     patch '/subjects/:slug' do
