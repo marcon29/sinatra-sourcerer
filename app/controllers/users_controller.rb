@@ -68,8 +68,7 @@ class UsersController < AppController
     # logout routes ################################################
     get '/logout' do
         redirect '/' if !logged_in?
-        session.delete(:user_id)        
-        # session.clear
+        session.delete(:user_id)
         redirect '/'
     end
 
