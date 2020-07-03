@@ -6,25 +6,27 @@ class TopicsController < AppController
     # create routes ###############################
     get '/topics/new' do
         redirect '/' if !logged_in?
-        @subjects = Subject.all
+        user = current_user
+        @subjects = user.subjects
         erb :"/topics/new"
     end
 
     post '/topics' do
+        user = current_user
         topic = Topic.new(params[:topic])
-
-        # need to auto assign new subject to user
+        topic.user = user
 
         if new_subject?
             subject = Subject.new(params[:subject])
+            subject.user = user
             subject.topics << topic
-
+            
             if subject.invalid?
                 flash[:message] = (
                     error_messages(topic) <<
                     error_messages(subject).drop(1)
                     ).join("<br>")
-                redirect "/topics/new"
+                redirect back
             end
         end
 
@@ -34,7 +36,7 @@ class TopicsController < AppController
             redirect "/topics/#{topic.slug}"
         else
             flash[:message] = error_messages(topic).join("<br>")
-            redirect "/topics/new"
+            redirect back
         end
     end
   
@@ -42,16 +44,30 @@ class TopicsController < AppController
     # also serves as sources index
     get '/topics/:slug' do
         redirect '/' if !logged_in?
-        @topic = Topic.find_by_slug(params[:slug])
-        erb :"/topics/show"
+        @user = current_user
+        @topic = user_item("topic")
+
+        if @topic
+            erb :"/topics/show"
+        else
+            flash[:message] = "That is not one of your topics"
+            redirect back
+        end
     end
     
     # update routes ###############################
     get '/topics/:slug/edit' do
         redirect '/' if !logged_in?
-        @topic = Topic.find_by_slug(params[:slug])
-        @subjects = Subject.all
-        erb :"/topics/edit"
+        @user = current_user
+        @topic = user_item("topic")
+
+        if @topic
+            @subjects = @user.subjects
+            erb :"/topics/edit"
+        else
+            flash[:message] = "That is not one of your topics"
+            redirect back
+        end        
     end
   
     patch '/topics/:slug' do

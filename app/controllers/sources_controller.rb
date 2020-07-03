@@ -6,22 +6,26 @@ class SourcesController < AppController
     # create routes ###############################
     get '/sources/new' do
         redirect '/' if !logged_in?
-        @subjects = Subject.all
-        @topics = Topic.all
+        user = current_user
+        @subjects = user.subjects
+        @topics = user.topics
         erb :"/sources/new"
     end
 
     post '/sources' do
+        user = current_user
         source = Source.new(params[:source])
-
-        # need to auto assign new source to user
+        source.user = user
         
         if new_topic?
             topic = Topic.new(params[:topic])
+            topic.user = user
             
             if new_subject?
                 subject = Subject.new(params[:subject])
+                subject.user = user
                 subject.topics << topic
+
                 if subject.invalid?
                     source.valid?
                     flash[:message] = (
@@ -29,18 +33,19 @@ class SourcesController < AppController
                         error_messages(topic).drop(1) <<
                         error_messages(subject).drop(1)
                         ).join("<br>")
-                    redirect "/sources/new"
+                    redirect back
                 end
             end
 
             source.topics << topic
+
             if topic.invalid?
                 source.valid?
                 flash[:message] = (
                     error_messages(source) <<
                     error_messages(topic).drop(1)
                     ).join("<br>")
-                redirect "/sources/new"
+                redirect back
             end
         end
 
@@ -51,24 +56,40 @@ class SourcesController < AppController
             redirect "/sources/#{source.slug}"
         else
             flash[:message] = error_messages(source).join("<br>")
-            redirect "/sources/new"
+            redirect back
         end
     end
   
     # read routes #################################
     get '/sources/:slug' do
         redirect '/' if !logged_in?
-        @source = Source.find_by_slug(params[:slug])
-        erb :"/sources/show"
+        @user = current_user
+        @source = user_item("source")
+
+        if @source
+            erb :"/sources/show"
+        else
+            flash[:message] = "That is not one of your sources"
+            redirect back
+        end
+        
     end
   
     # update routes ###############################
     get '/sources/:slug/edit' do
         redirect '/' if !logged_in?
-        @source = Source.find_by_slug(params[:slug])
-        @subjects = Subject.all
-        @topics = Topic.all
-        erb :"/sources/edit"
+        @user = current_user
+        @source = user_item("source")
+
+        if @source
+            @subjects = @user.subjects
+            @topics = @user.topics
+            erb :"/sources/edit"
+        else
+            flash[:message] = "CHECK That is not one of your sources"
+            redirect back
+        end  
+        
     end
   
     patch '/sources/:slug' do

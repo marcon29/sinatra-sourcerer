@@ -16,8 +16,8 @@ class SubjectsController < AppController
 
         if new_topic?
             topic = Topic.new(params[:topic])
-            topic.subject = subject
             topic.user = user
+            topic.subject = subject            
 
             if topic.invalid?
                 flash[:message] = error_messages(topic).join("<br>")
