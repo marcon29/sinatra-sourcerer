@@ -11,6 +11,17 @@ class UsersController < AppController
 
     # process signup form route
     post '/signup' do
+        user = User.new(params[:user])
+        # user = User.create(params[:user])
+        # then log them in
+
+        binding.pry
+
+        # error messages to use in views when at that point
+        # user.errors.messages[:password]
+        # user.errors.messages[:username]
+        # user.errors.messages[:email]
+
         redirect '/subjects'
     end
 
@@ -23,6 +34,11 @@ class UsersController < AppController
 
     # process login form - add the user_id to the sessions hash
     post '/login' do
+        user = User.find_by(username: params[:user][:username])
+        
+        # log in user
+
+        binding.pry
         redirect '/subjects'
     end
 
@@ -40,6 +56,10 @@ class UsersController < AppController
     end
     
     patch '/users/:slug' do
+        # user = User.update(params[:user])
+
+        binding.pry
+        
         redirect "/subjects"
     end
 

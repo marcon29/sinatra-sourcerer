@@ -1,6 +1,6 @@
 <section class="content-header">
     <div class="content-header-info">
-        <h2>Edit <%= @user.formatted_name %></h2>
+        <h2>Edit Profile for <%= current_user.full_name %></h2>
     </div>
 </section>
 
@@ -10,10 +10,26 @@
 
 <section class="content-item">
     <div class="content-item-info">
-        <form class="new-edit-form" method="post" action="/topics/<%= @topic.slug %>">
+        <form class="new-edit-form" method="post" action="/users/<%= current_user.slug %>">
             <input id="hidden" type="hidden" name="_method" value="patch">
 
-            <p><input type="submit" value="Update"></p>
+            <h3>Enter Your Info to Create a Profile</h3>
+            <p><label for="first_name">First Name: </label>
+                <input id="first_name" type="text" name="user[first_name]" value="<%= current_user.first_name %>"></p>
+            <p><label for="last_name">Last Name: </label>
+                <input id="last_name" type="text" name="user[last_name]" value="<%= current_user.last_name %>"></p>
+            <p><label for="email">Email: </label>
+                <input id="email" type="text" name="user[email]" value="<%= current_user.email %>"></p>
+            <p><label for="username">Username: </label>
+                <input id="username" type="text" name="user[username]" value="<%= current_user.username %>"></p>
+            <p>
+                <label for="password">New Password: </label>
+                <input id="password" type="text" name="user[password]" value="<%= current_user.password %>"><br>
+                <span style="padding-left: 6.8em;">(leave this blank if not changing your password)<span>
+            </p>
+            <br>
+
+            <p><input type="submit" value="Edit Profile"></p>
         </form>
     </div>
 </section>

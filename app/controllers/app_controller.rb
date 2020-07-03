@@ -48,7 +48,7 @@ class AppController < Sinatra::Base
 
     # user helpers ###############################
     # these need to be reviewed still    
-    def signup_login(username, email, password)
+    def login(username, email, password)
         if username == "" || email == "" || password == ""
           redirect '/signup'
         else
@@ -61,22 +61,13 @@ class AppController < Sinatra::Base
           redirect '/signup'
         end
       end
-      
-      def login(username, password)
-        if username == "" || password == ""
-          redirect '/login'
-        else
-          user = User.find_by(username: username)
-        end
-      
-        if user && user.authenticate(password)
-          session[:user_id] = user.id
-        else
-          redirect '/signup'
-        end
-      end
     
       def current_user
+        #################################################################
+        # delete this first line once login and user testing done         
+        session[:user_id] = 3
+        #################################################################
+        
         User.find(session[:user_id])
       end
       

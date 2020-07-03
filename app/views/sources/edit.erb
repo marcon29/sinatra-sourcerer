@@ -28,7 +28,7 @@
                 <p><label for="date-published">Date Published: </label>
                     <input id="date-published" type="date" name="source[pub_date]" value="<%= @source.pub_date %>"></p>
                 <p><label for="media-type">Media Type: </label>
-                    <select id="media-type" name="source[media_type]" >
+                    <select id="media-type" name="source[media_type]">
                         <option value="<%= @source.media_type %>"><%= @source.media_type %></option>
                         <option value="">--Please choose an option--</option>
                         <% Source.media_options.each do |item| %>
@@ -50,7 +50,7 @@
                 
                 <h4>Associate New Topic (will add to topic selections above)</h4>
                 <p><label for="name">Name: </label>
-                    <input id="name" type="text" name="topic[name]"</p>
+                    <input id="name" type="text" name="topic[name]"></p>
                 <p><label for="description">Description: </label>
                     <textarea id="description" type="text" name="topic[description]"></textarea></p>
             </section>
@@ -65,7 +65,7 @@
                         
                 <h4>Associate New Subject (will override subject selection above)</h4>
                 <p><label for="name">Name: </label>
-                    <input id="name" type="text" name="subject[name]"</p>
+                    <input id="name" type="text" name="subject[name]"></p>
                 <p><label for="description">Description: </label>
                     <textarea id="description" type="text" name="subject[description]"></textarea></p>
             </section>

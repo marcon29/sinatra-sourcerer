@@ -10,9 +10,20 @@
 
 <section class="content-item">
     <div class="content-item-info">
-        <form class="new-edit-form" method="post" action="/topics">
+        <form class="new-edit-form" method="post" action="/signup">
+            <h3>Enter Your Info to Create a Profile</h3>
+            <p><label for="first_name">First Name: </label>
+                <input id="first_name" type="text" name="user[first_name]"></p>
+            <p><label for="last_name">Last Name: </label>
+                <input id="last_name" type="text" name="user[last_name]"></p>
+            <p><label for="email">Email: </label>
+                <input id="email" type="text" name="user[email]"></p>
+            <p><label for="username">Username: </label>
+                <input id="username" type="text" name="user[username]"></p>
+            <p><label for="password">Password: </label>
+                <input id="password" type="text" name="user[password]"></p>
 
-            <p><input type="submit" value="Add Topic"></p>
+            <p><input type="submit" value="Sign Up"></p>
         </form>
     </div>
 </section>
