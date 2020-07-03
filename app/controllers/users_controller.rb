@@ -4,25 +4,23 @@ class UsersController < AppController
     use Rack::Flash
 
     # signup routes ################################################
-    # display signup form route
-    get '/signup' do
+    # display signup form route    
+    get '/signup' do        
         erb :"users/signup"
     end
 
     # process signup form route
     post '/signup' do
         user = User.new(params[:user])
-        # user = User.create(params[:user])
-        # then log them in
 
-        binding.pry
-
-        # error messages to use in views when at that point
-        # user.errors.messages[:password]
-        # user.errors.messages[:username]
-        # user.errors.messages[:email]
-
-        redirect '/subjects'
+        if user.save
+            login(user)
+            flash[:message] = "#{user.username} created"
+            redirect "/subjects"
+        else
+            flash[:message] = error_messages(user).join("<br>")
+            redirect '/signup'
+        end
     end
 
 
@@ -32,41 +30,41 @@ class UsersController < AppController
         erb :"users/login"
     end
 
-    # process login form - add the user_id to the sessions hash
+    # process login form
     post '/login' do
-        user = User.find_by(username: params[:user][:username])
-        
-        # log in user
-
-        binding.pry
-        redirect '/subjects'
-    end
-
-    
-    # user home routes ################################################
-    # shows only the signed in users's sources
-    get "/users/:slug" do
-        # this should go to the subjects index - need this route?
+        if params[:user][:username] == "" || params[:user][:password] == ""            
+            flash[:message] = "Operation Failed <br> Both Username and Password must be filled out"
+            redirect '/login'
+        else
+            user = User.find_by(username: params[:user][:username])
+            login(user)
+            flash[:message] = "Welcome, #{user.first_name.capitalize}"
+            redirect "/subjects"
+        end
     end
 
 
     # update routes ###############################
-    get '/users/:slug/edit' do            
+    get '/users/:slug/edit' do
         erb :"/users/edit"
     end
     
     patch '/users/:slug' do
-        # user = User.update(params[:user])
-
-        binding.pry
+        user = current_user
         
-        redirect "/subjects"
+        if user.update(params[:user])
+            flash[:message] = "#{user.username} updated"
+            redirect "/subjects"
+        else
+            flash[:message] = error_messages(user).join("<br>")
+            redirect "/users/#{current_user.slug}/edit"
+        end
     end
 
     
     # logout routes ################################################
-    # process logout form (in layout.erb right now)
     get '/logout' do
+        session.clear
         redirect '/'
     end
 
@@ -75,7 +73,8 @@ class UsersController < AppController
     # delete routes ###############################
     # delete user (keep sources for others???)
     delete '/users/:slug' do
-        redirect "/"        
+        # need to do this and decide what should happen
+        redirect "/"
     end
 
 
