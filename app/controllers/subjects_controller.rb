@@ -66,6 +66,7 @@ class SubjectsController < AppController
         @user = current_user
         @subject = user_item("subject")
         @subjects = @user.subjects
+        @topics = @user.topics
 
         if params[:reassign]
             params[:reassign].each do |key, value|
@@ -108,9 +109,6 @@ class SubjectsController < AppController
         
     # delete routes ###############################
     delete '/subjects/:slug' do
-        # @subject = Subject.find_by_slug(params[:slug])
-        # @subjects = Subject.all
-
         @user = current_user
         @subject = user_item("subject")
         @subjects = @user.subjects
@@ -128,6 +126,9 @@ class SubjectsController < AppController
         if @orphans.empty?
             @subject.destroy
             flash[:message] = "#{@subject.formatted_name} removed"
+            redirect "/subjects"
+        elsif @subjects.count == 1
+            flash[:message] = "Topics within #{@subject.formatted_name} have no place to go.<br>Either create a new subject to move them to, <br> or delete those topics first."
             redirect "/subjects"
         else
             erb :"/subjects/reassign"

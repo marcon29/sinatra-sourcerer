@@ -136,8 +136,14 @@ class SourcesController < AppController
 
         if source.save
             flash[:message] = "#{source.formatted_name} updated"
-            flash[:message] << " within newly created #{topic.formatted_name}" if topic
-            flash[:message] << " within newly created #{subject.formatted_name}" if subject
+
+            if !params[:source][:topic_ids] && !new_topic?
+                flash[:message] << ". No topic provided - keeping in original topic."
+            else
+                flash[:message] << " within newly created #{topic.formatted_name}" if topic
+                flash[:message] << " within newly created #{subject.formatted_name}" if subject
+            end
+
             redirect "/sources/#{source.slug}"
         else
             flash[:message] = error_messages(source).join("<br>")

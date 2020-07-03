@@ -30,7 +30,7 @@ class AppController < Sinatra::Base
 			if req_meth == "DELETE"
 				@subject.topics
 			else
-				Topic.all.select { |obj| !obj.subject_id }
+				@topics.select { |obj| !obj.subject_id }				
 			end
 		end
 	end

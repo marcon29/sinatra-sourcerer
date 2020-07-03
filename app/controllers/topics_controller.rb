@@ -100,9 +100,6 @@ class TopicsController < AppController
         
     # delete routes ###############################
     delete '/topics/:slug' do
-        # @topic = Topic.find_by_slug(params[:slug])
-        # @topics = Topic.all
-
         @user = current_user
         @topic = user_item("topic")
         @topics = @user.topics
@@ -120,6 +117,9 @@ class TopicsController < AppController
         if @orphans.empty?
             @topic.destroy
             flash[:message] = "#{@topic.formatted_name} removed"
+            redirect "/subjects"
+        elsif @topics.count == 1
+            flash[:message] = "Sources within #{@topic.formatted_name} have no place to go.<br>Either create a new topic to move them to, <br> or delete those sources first."
             redirect "/subjects"
         else
             erb :"/topics/reassign"
