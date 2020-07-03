@@ -5,6 +5,7 @@ class SubjectsController < AppController
 
     # create routes ###############################
     get '/subjects/new' do
+        redirect '/' if !logged_in?
         erb :"/subjects/new"
     end
 
@@ -39,12 +40,14 @@ class SubjectsController < AppController
     # read routes #################################
     # also serves as topics index
     get '/subjects' do
+        redirect '/' if !logged_in?
         @subjects = Subject.all
         erb :"/subjects/index"
     end
     
     # update routes ###############################
     get '/subjects/:slug/edit' do
+        redirect '/' if !logged_in?
         @subject = Subject.find_by_slug(params[:slug])
         @topics = Topic.all
         erb :"/subjects/edit"

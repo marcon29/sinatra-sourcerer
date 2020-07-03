@@ -8,6 +8,7 @@ class AppController < Sinatra::Base
 
 	# app home page
 	get '/' do
+		redirect '/subjects' if logged_in?
 		erb :index
 	end
 

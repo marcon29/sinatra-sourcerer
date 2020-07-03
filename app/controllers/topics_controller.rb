@@ -5,6 +5,7 @@ class TopicsController < AppController
 
     # create routes ###############################
     get '/topics/new' do
+        redirect '/' if !logged_in?
         @subjects = Subject.all
         erb :"/topics/new"
     end
@@ -40,12 +41,14 @@ class TopicsController < AppController
     # read routes #################################
     # also serves as sources index
     get '/topics/:slug' do
+        redirect '/' if !logged_in?
         @topic = Topic.find_by_slug(params[:slug])
         erb :"/topics/show"
     end
     
     # update routes ###############################
     get '/topics/:slug/edit' do
+        redirect '/' if !logged_in?
         @topic = Topic.find_by_slug(params[:slug])
         @subjects = Subject.all
         erb :"/topics/edit"

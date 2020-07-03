@@ -5,7 +5,8 @@ class UsersController < AppController
 
     # signup routes ################################################
     # display signup form route    
-    get '/signup' do        
+    get '/signup' do
+        redirect '/subjects' if logged_in?
         erb :"users/signup"
     end
 
@@ -27,6 +28,7 @@ class UsersController < AppController
     # login routes ################################################
     # display login form
     get '/login' do
+        redirect '/subjects' if logged_in?
         erb :"users/login"
     end
 
@@ -46,6 +48,7 @@ class UsersController < AppController
 
     # update routes ###############################
     get '/users/:slug/edit' do
+        redirect '/subjects' if !logged_in?
         erb :"/users/edit"
     end
     
@@ -64,6 +67,7 @@ class UsersController < AppController
     
     # logout routes ################################################
     get '/logout' do
+        redirect '/' if !logged_in?
         session.clear
         redirect '/'
     end
@@ -73,8 +77,9 @@ class UsersController < AppController
     # delete routes ###############################
     # delete user (keep sources for others???)
     delete '/users/:slug' do
+        redirect '/' if !logged_in?
         # need to do this and decide what should happen
-        redirect "/"
+        redirect "/logout"
     end
 
 

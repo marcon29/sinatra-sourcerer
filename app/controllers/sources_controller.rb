@@ -5,6 +5,7 @@ class SourcesController < AppController
 
     # create routes ###############################
     get '/sources/new' do
+        redirect '/' if !logged_in?
         @subjects = Subject.all
         @topics = Topic.all
         erb :"/sources/new"
@@ -56,12 +57,14 @@ class SourcesController < AppController
   
     # read routes #################################
     get '/sources/:slug' do
+        redirect '/' if !logged_in?
         @source = Source.find_by_slug(params[:slug])
         erb :"/sources/show"
     end
   
     # update routes ###############################
     get '/sources/:slug/edit' do
+        redirect '/' if !logged_in?
         @source = Source.find_by_slug(params[:slug])
         @subjects = Subject.all
         @topics = Topic.all
