@@ -18,6 +18,17 @@
     <p class="flash-message"><%= flash[:message] %></p>
 <% end %>
 
+<% if @topic.sources.empty? %>
+    <section class="content-item">
+        <div class="content-item-info">
+            <div class="item-info-head">
+                <h3>You Have No Sources in This Topic</h3>
+                <h4 class="display-horiz"><a href="/sources/new">Add a Source</a> to Get Started</h4>
+            </div>
+        </div>
+    </section>
+<% end %>
+
 <% @topic.sources.order("name ASC").each do |s| %>
     <section class="content-item">
         <div class="content-item-info">

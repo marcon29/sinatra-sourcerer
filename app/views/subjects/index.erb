@@ -8,6 +8,21 @@
     <p class="flash-message"><%= flash[:message] %></p>
 <% end %>
 
+<% if @subjects.empty? %>
+    <section class="content-item">
+        <div class="content-item-info">
+            <div class="item-info-head">
+                <h2>You Have No Subjects</h2>
+                <h3>Add a Subject, Topic, or Source to Get Started</h3>
+                <h4 class="display-horiz"><a href="/subjects/new">Add Subject</a></h4>
+                <h4 class="display-horiz"><a href="/topics/new">Add Topic</a></h4>
+                <h4 class="display-horiz"><a href="/sources/new">Add Source</a></h4>
+                <p>Adding a Source will give you the option of also adding a Subject and Topic</p>
+            </div>
+        </div>
+    </section>
+<% end %>
+
 <% @subjects.order("name ASC").each do |s| %>
     <section class="content-item">
         <div class="content-item-info">
@@ -24,27 +39,36 @@
                 <p><%= s.description %></p>
             </div>
             <hr>
-            <div class="item-info-body">
-                <h4 class="table-header"><%= s.topics.count %> Topic<%= "s" if s.topics.count!=1 %></h4>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Topic</th>
-                            <th># of Sources</th>
-                            <th>Description</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% s.topics.order("name ASC").each do |t| %>
+            
+            <% if s.topics.empty? %>
+                <div class="item-info-body">
+                    <h4>This subject has no topics</h4>
+                    <p class="display-horiz"><a href="/topics/new">Add Topic</a></p>
+                    <p class="display-horiz"><a href="/sources/new">Add Source</a></p>
+                </div>
+            <% else %>
+                <div class="item-info-body">
+                    <h4 class="table-header"><%= s.topics.count %> Topic<%= "s" if s.topics.count!=1 %></h4>
+                    <table>
+                        <thead>
                             <tr>
-                                <td><a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a></td>
-                                <td><%= t.sources.count %> Source<%= "s" if t.sources.count!=1 %></td>
-                                <td><%= t.description %></td>
+                                <th>Topic</th>
+                                <th># of Sources</th>
+                                <th>Description</th>
                             </tr>
+                        </thead>
+                        <tbody>
+                            <% s.topics.order("name ASC").each do |t| %>
+                                <tr>
+                                    <td><a href="/topics/<%= t.slug %>"><%= t.formatted_name %></a></td>
+                                    <td><%= t.sources.count %> Source<%= "s" if t.sources.count!=1 %></td>
+                                    <td><%= t.description %></td>
+                                </tr>
                             <% end %>
                         <tbody>
-                </table>
-            </div>
+                    </table>
+                </div>
+            <% end %>
         </div>
     </section>
 <% end %>
