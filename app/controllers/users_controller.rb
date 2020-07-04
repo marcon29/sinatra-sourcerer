@@ -4,13 +4,11 @@ class UsersController < AppController
     use Rack::Flash
 
     # signup routes ################################################
-    # display signup form route    
     get '/signup' do
         redirect '/subjects' if logged_in?
         erb :"users/signup"
     end
 
-    # process signup form route
     post '/signup' do
         user = User.new(params[:user])
 
@@ -26,13 +24,11 @@ class UsersController < AppController
 
 
     # login routes ################################################
-    # display login form
     get '/login' do
         redirect '/subjects' if logged_in?
         erb :"users/login"
     end
 
-    # process login form
     post '/login' do
         if params[:user][:username] == "" || params[:user][:password] == ""            
             flash[:message] = "Operation Failed <br> Both Username and Password must be filled out"
@@ -71,16 +67,4 @@ class UsersController < AppController
         session.delete(:user_id)
         redirect '/'
     end
-
-
-    
-    # delete routes ###############################
-    # delete user (keep sources for others???)
-    delete '/users/:slug' do
-        redirect '/' if !logged_in?
-        # need to do this and decide what should happen
-        redirect "/logout"
-    end
-
-
   end

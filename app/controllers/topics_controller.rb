@@ -39,6 +39,7 @@ class TopicsController < AppController
             redirect back
         end
     end
+
   
     # read routes #################################
     # also serves as sources index
@@ -55,6 +56,7 @@ class TopicsController < AppController
             redirect back
         end
     end
+
     
     # update routes ###############################
     get '/topics/:slug/edit' do
@@ -98,6 +100,7 @@ class TopicsController < AppController
             redirect back
         end
     end
+    
         
     # delete routes ###############################
     delete '/topics/:slug' do

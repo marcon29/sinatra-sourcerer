@@ -12,6 +12,7 @@ class AppController < Sinatra::Base
 		erb :index
 	end
 
+
 	# app helpers ###############################
 	def new_subject?
 		!params[:subject][:name].empty?
@@ -58,40 +59,29 @@ class AppController < Sinatra::Base
 		end		
 	end
 	
-	# topic helpers ###############################
 
+	# topic helpers ###############################
 	def others_same_name_topics
 		Topic.all.select { |top| top.formatted_name == @topic.formatted_name && top != @topic }
-   end
-
-   def all_sources_urls
-	   @topic.sources.collect { |src| src.url }
-   end
-
-   def others_unique_public_sources 
-	   sources = []
-	   others_same_name_topics.each do |top|
-		   top.sources.each do |src| 
-			   if src.public == true && !all_sources_urls.include?(src.url)
-				   sources << src
-			   end
-		   end
-	   end
-	   sources
-   end
-   
-
-	# delete this method when done testing
-	def check_others_sources
-		others_unique_public_sources.collect { |src| src.name }
+	end
+	
+	def all_sources_urls
+		@topic.sources.collect { |src| src.url }
 	end
 
-
-
+	def others_unique_public_sources
+		sources = []
+		others_same_name_topics.each do |top|
+			top.sources.each do |src|
+				if src.public == true && !all_sources_urls.include?(src.url)
+					sources << src
+				end
+			end
+		end
+		sources
+	end
 
 	# user helpers ###############################
-
-	# def login(username, email, password)
     def login(user)
 		if user && user.authenticate(params[:user][:password])
 			session[:user_id] = user.id
@@ -108,7 +98,4 @@ class AppController < Sinatra::Base
 	def logged_in?
 		!!session[:user_id]
 	end
-
-
-
 end

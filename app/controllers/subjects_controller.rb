@@ -38,6 +38,7 @@ class SubjectsController < AppController
         end
     end
   
+
     # read routes #################################
     # also serves as topics index
     get '/subjects' do
@@ -46,6 +47,7 @@ class SubjectsController < AppController
         @subjects = user.subjects
         erb :"/subjects/index"
     end
+
     
     # update routes ###############################
     get '/subjects/:slug/edit' do
@@ -106,6 +108,7 @@ class SubjectsController < AppController
             erb :"/subjects/reassign"
         end
     end
+    
         
     # delete routes ###############################
     delete '/subjects/:slug' do

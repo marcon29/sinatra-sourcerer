@@ -75,6 +75,7 @@ class SourcesController < AppController
             redirect back
         end
     end
+
   
     # read routes #################################
     get '/sources/:slug' do
@@ -88,8 +89,8 @@ class SourcesController < AppController
             flash[:message] = "That is not one of your sources"
             redirect back
         end
-        
     end
+
   
     # update routes ###############################
     get '/sources/:slug/edit' do
@@ -104,8 +105,7 @@ class SourcesController < AppController
         else
             flash[:message] = "That is not one of your sources"
             redirect back
-        end  
-        
+        end
     end
   
     patch '/sources/:slug' do
@@ -166,6 +166,7 @@ class SourcesController < AppController
             redirect back
         end
     end
+    
     
     # delete routes ###############################
     delete '/sources/:slug' do
