@@ -52,11 +52,42 @@ class AppController < Sinatra::Base
 			when "subject"
 				@user.subjects.find { |sub| sub.slug == params[:slug] }
 			when "topic"
-				@user.topics.find { |sub| sub.slug == params[:slug] }
+				@user.topics.find { |top| top.slug == params[:slug] }
 			when "source"
-				@user.sources.find { |sub| sub.slug == params[:slug] }
+				@user.sources.find { |src| src.slug == params[:slug] }
 		end		
 	end
+	
+	# topic helpers ###############################
+
+	def others_same_name_topics
+		Topic.all.select { |top| top.formatted_name == @topic.formatted_name && top != @topic }
+   end
+
+   def all_sources_urls
+	   @topic.sources.collect { |src| src.url }
+   end
+
+   def others_unique_public_sources 
+	   sources = []
+	   others_same_name_topics.each do |top|
+		   top.sources.each do |src| 
+			   if src.public == true && !all_sources_urls.include?(src.url)
+				   sources << src
+			   end
+		   end
+	   end
+	   sources
+   end
+   
+
+	# delete this method when done testing
+	def check_others_sources
+		others_unique_public_sources.collect { |src| src.name }
+	end
+
+
+
 
 	# user helpers ###############################
 

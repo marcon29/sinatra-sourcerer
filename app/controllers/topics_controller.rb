@@ -45,7 +45,10 @@ class TopicsController < AppController
     get '/topics/:slug' do
         redirect '/' if !logged_in?
         @user = current_user
-        @topic = user_item("topic")
+        @topic = user_item("topic")        
+        @others_sources = others_unique_public_sources
+
+        # binding.pry
 
         if @topic
             erb :"/topics/show"
