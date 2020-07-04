@@ -63,11 +63,6 @@
     </section>
 <% end %>
 
-
-
-
-
-
 <! -- other users' sources  if public and same topic -->
 <% if !@others_sources.empty? %>
     <section class="other-sources-header">
@@ -87,8 +82,18 @@
                 <p class="display-horiz"><strong>Media Type: </strong><%= s.media_type %></p>
                 <p><strong>Synopsis: </strong><%= s.synopsis %></p>
 
-                <form class="crud-button" method="post" action="">
-                    <input id="hidden" type="hidden" name="_method" value="delete">
+                <form class="crud-button" method="post" action="/sources/add">
+                    <input id="hidden" type="hidden" name="source[name]" value="<%= s.name %>">
+                    <input id="hidden" type="hidden" name="source[url]" value="<%= s.url %>">
+                    <input id="hidden" type="hidden" name="source[pub]" value="<%= s.pub %>">
+                    <input id="hidden" type="hidden" name="source[synopsis]" value="<%= s.synopsis %>">
+                    <input id="hidden" type="hidden" name="source[author]" value="<%= s.author %>">
+                    <input id="hidden" type="hidden" name="source[pub_date]" value="<%= s.pub_date %>">
+                    <input id="hidden" type="hidden" name="source[media_type]" value="<%= s.media_type %>">
+                    <input id="hidden" type="hidden" name="source[notes]" value="<%= s.notes %>">
+                    <input id="hidden" type="hidden" name="source[public]" value="false">
+                    <input id="hidden" type="hidden" name="source[topic_ids][]" value="<%= @topic.id %>">                    
+
                     <input type="submit" value="Save to Your Sources">
                 </form>
             </div>

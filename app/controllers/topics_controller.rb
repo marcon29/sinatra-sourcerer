@@ -48,8 +48,6 @@ class TopicsController < AppController
         @topic = user_item("topic")        
         @others_sources = others_unique_public_sources
 
-        # binding.pry
-
         if @topic
             erb :"/topics/show"
         else

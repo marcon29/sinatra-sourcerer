@@ -59,6 +59,22 @@ class SourcesController < AppController
             redirect back
         end
     end
+
+    post '/sources/add' do
+        user = current_user        
+        source = Source.new(params[:source])
+        source.user = user
+        
+        topic = Topic.find(source.topic_ids.first)
+
+        if source.save
+            flash[:message] = "#{source.formatted_name} added to #{topic.formatted_name}"            
+            redirect "/sources/#{source.slug}"
+        else
+            flash[:message] = error_messages(source).join("<br>")
+            redirect back
+        end
+    end
   
     # read routes #################################
     get '/sources/:slug' do
