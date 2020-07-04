@@ -9,7 +9,8 @@
             <input type="submit" value="Delete Topic">
         </form>
         <p><strong>Associated Subject: </strong><%= @topic.subject.formatted_name %></p>
-        <p><strong>Total Sources: </strong><%= @topic.sources.count %></p>
+        <p class="display-horiz"><strong>Your Sources: </strong><%= @topic.sources.count %></p>
+        <p class="display-horiz"><strong>Other Sources: </strong><%= @others_sources.count %></p>
         <p><%= @topic.description %></p>
     </div>
 </section>
@@ -25,6 +26,12 @@
                 <h3>You Have No Sources in This Topic</h3>
                 <h4 class="display-horiz"><a href="/sources/new">Add a Source</a> to Get Started</h4>
             </div>
+        </div>
+    </section>
+<% else %>
+    <section class="other-sources-header">
+        <div class="content-header-info">
+            <h2 class="display-horiz">Your Sources in <%= @topic.formatted_name %></h2>            
         </div>
     </section>
 <% end %>
@@ -61,29 +68,30 @@
 
 
 
-<! -- other users' sources  if public and same topic --> 
-<section class="content-header">
-    <div class="content-header-info">
-        <h2 class="display-horiz">Other User Sources in <%= @topic.formatted_name %></h2>        
-        <p><strong>Total Sources: </strong><%= @others_sources.count %></p>
-    </div>
-</section>
-
-<% @others_sources.sort_by { |src| src.name }.each do |s| %>
-    <section class="content-item">
-        <div class="content-item-info">
-            <h3><a href="http://<%= s.url %>" target="_blank"><%= s.formatted_name %></a></h3>
-            
-            <p class="display-horiz"><strong>Publication: </strong><%= s.pub %></p>
-            <p class="display-horiz"><strong>Author: </strong><%= s.author %></p>
-            <p class="display-horiz"><strong>Publication Date: </strong><%= formatted_date(s.pub_date) %></p>
-            <p class="display-horiz"><strong>Media Type: </strong><%= s.media_type %></p>
-            <p><strong>Synopsis: </strong><%= s.synopsis %></p>
-
-            <form class="crud-button" method="post" action="">
-                <input id="hidden" type="hidden" name="_method" value="delete">
-                <input type="submit" value="Save to Your Sources">
-            </form>
+<! -- other users' sources  if public and same topic -->
+<% if !@others_sources.empty? %>
+    <section class="other-sources-header">
+        <div class="content-header-info">
+            <h2 class="display-horiz">Other User Sources in <%= @topic.formatted_name %></h2>
         </div>
     </section>
+
+    <% @others_sources.sort_by { |src| src.name }.each do |s| %>
+        <section class="other-content-item">
+            <div class="content-item-info">
+                <h3><a href="http://<%= s.url %>" target="_blank"><%= s.formatted_name %></a></h3>
+                
+                <p class="display-horiz"><strong>Publication: </strong><%= s.pub %></p>
+                <p class="display-horiz"><strong>Author: </strong><%= s.author %></p>
+                <p class="display-horiz"><strong>Publication Date: </strong><%= formatted_date(s.pub_date) %></p>
+                <p class="display-horiz"><strong>Media Type: </strong><%= s.media_type %></p>
+                <p><strong>Synopsis: </strong><%= s.synopsis %></p>
+
+                <form class="crud-button" method="post" action="">
+                    <input id="hidden" type="hidden" name="_method" value="delete">
+                    <input type="submit" value="Save to Your Sources">
+                </form>
+            </div>
+        </section>
+    <% end %>
 <% end %>
