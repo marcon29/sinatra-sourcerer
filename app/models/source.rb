@@ -6,11 +6,18 @@ class Source < ActiveRecord::Base
         
     validates :topics, presence: { message: "must select or create a topic" }
     validates :user, presence: true
-    validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :user }    
-        
-    # add validation condition: ignore http/https and www.
-    # validates :url, presence: true, uniqueness: { case_sensitive: false, scope: :user }
-        
+    validates :name, presence: true, uniqueness: { case_sensitive: false, scope: :user }
+    validates :url, presence: true, uniqueness: { case_sensitive: false, scope: :user }    
+    before_validation :format_url
+   
+    def format_url
+        string = self.url.gsub(/(https:\/\/|http:\/\/)?(www.)?/, "").strip
+        string.ends_with?('/') ? string = string.chomp("/") : string
+
+        if !string.empty?
+            self.url = "www." << string
+        end
+    end
 
     def self.media_options
         ["Audio", 
@@ -29,10 +36,6 @@ class Source < ActiveRecord::Base
 
     def slug
         self.name.gsub(" ", "-").scan(/[[^\s\W]-]/).join.downcase
-    end
-
-    def link
-        self.url.downcase.gsub(/(https:\/\/|http:\/\/)/, "")
     end
 
     def formatted_name

@@ -7,8 +7,8 @@
             <% end %>
         </h3>
 
-        <form class="crud-button" method="get" action="http://<%= @source.link %>" target="_blank">
-            <input type="submit" value="View Source">
+        <form class="crud-button" method="get" action="http://<%= @source.url %>" target="_blank">
+            <input type="submit" value="Go to Source">
         </form>
 
         <form class="crud-button" method="get" action="/sources/<%= @source.slug %>/edit">

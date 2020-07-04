@@ -32,7 +32,7 @@
 <% @topic.sources.order("name ASC").each do |s| %>
     <section class="content-item">
         <div class="content-item-info">
-            <h3><a href="http://<%= s.link %>" target="_blank"><%= s.formatted_name %></a></h3>
+            <h3><a href="http://<%= s.url %>" target="_blank"><%= s.formatted_name %></a></h3>
             
             <p class="display-horiz"><strong>Publication: </strong><%= s.pub %></p>
             <p class="display-horiz"><strong>Author: </strong><%= s.author %></p>
