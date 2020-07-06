@@ -7,6 +7,7 @@ Collect online sources in one place and access them via any internet connected d
 1. Fork and clone this repo
 2. Pull your repo to your local environment
 3. In your CLI, navigate to the folder you cloned the code files to. 
+
 Then execute (requires Bundler):
 
     $ bundle install
