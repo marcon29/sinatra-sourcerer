@@ -44,18 +44,18 @@ To log in:
 Creating a Subject:
 1. Click on "Add Subject"
 2. Fill out the Name and Description fields
-    a. The name is required and must be unique
+    1. The name is required and must be unique
 3. You'll also have the ability to create a new topic at the same time (optional)
 4. Click on the "Add Subject" button at the bottom to submit your info
 
 Creating a Topic:
 1. Click on "Add Topic"
 2. Fill out the Name and Description fields
-    2a. The Name is required and must be unique 
+    1. The Name is required and must be unique 
 3. You must assign the topic to a subject (note: a topic can only be in one subject)
-    3a. You can either select from your existing subjects or
-    3b. You can create a new subject
-    3c. If you select both an existing subject and create a new one, the topic will only go in the newly created topic
+    1. You can either select from your existing subjects or
+    2. You can create a new subject
+    3. If you select both an existing subject and create a new one, the topic will only go in the newly created topic
 4. Click on the "Add Topic" button at the bottom to submit your info
 
 Creating a Source:
