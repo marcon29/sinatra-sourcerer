@@ -11,21 +11,21 @@ class Source < ActiveRecord::Base
     before_validation :format_url
    
     def format_url
-        string = self.url.gsub(/(https:\/\/|http:\/\/)?(www.)?/, "").strip
+        string = self.url.gsub(/(https:\/\/|http:\/\/)?(www.)?/, "").strip.downcase
         string.ends_with?('/') ? string = string.chomp("/") : string
-
-        if !string.empty?
-            self.url = "www." << string
-        end
+        self.url = string if !string.empty?
     end
 
     def self.media_options
-        ["Audio", 
-        "Video", 
-        "Image", 
+        [
+        "Web Page",
+        "Stats Page", 
         "News Article", 
         "Blog Article", 
         "Study", 
+        "Video", 
+        "Audio", 
+        "Image", 
         "PDF", 
         "Other"]
     end
