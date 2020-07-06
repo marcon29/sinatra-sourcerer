@@ -44,7 +44,7 @@ To log in:
 Creating a Subject:
 1. Click on "Add Subject"
 2. Fill out the Name and Description fields
-    1. The name is required and must be unique
+    a. The name is required and must be unique
 3. You'll also have the ability to create a new topic at the same time (optional)
 4. Click on the "Add Subject" button at the bottom to submit your info
 
